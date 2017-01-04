@@ -1,10 +1,10 @@
 
 class Agent:
 
-    def __init__(self):
-        self.color
-        self.x
-        self.y
+    def __init__(self, color, x, y):
+        self.color = color
+        self.x = x
+        self.y = y
 
     def decide(self):
         pass
