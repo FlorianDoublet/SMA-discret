@@ -1,14 +1,17 @@
 from random import sample
-from itertools import combinations_with_replacement
+from itertools import product
 from model.Agent import Agent
+from observerPattern.observable import Observable
 
 
-class SMA:
-
-    def __init__(self, w, h):
+class SMA(Observable):
+    def __init__(self, w, h, number):
+        super().__init__()
 
         # Generer toutes les permutations possibles
-        every_possible_tuple_position = [i for i in combinations_with_replacement(range(max(w, h)), 2)]
+        every_possible_tuple_position = [i for i in product(range(max(w, h)), repeat=2)]
+        for p in every_possible_tuple_position:
+            print(p)
 
         index = 0
         if h > w:
@@ -17,7 +20,7 @@ class SMA:
         every_possible_tuple_position = [i for i in every_possible_tuple_position if i[index] < min(w, h)]
 
         # Recuperer x valeurs de toutes les permutations possible sans doublons
-        positions = sample(every_possible_tuple_position, 10)
+        positions = sample(every_possible_tuple_position, number)
 
         # On cree les agents
         self.agent_list = [Agent("color", p[0], p[1]) for p in positions]
