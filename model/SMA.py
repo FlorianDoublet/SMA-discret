@@ -1,12 +1,17 @@
 from random import sample
 from itertools import product
 from model.Agent import Agent
+from model.Environnement import Environnement
 from observerPattern.observable import Observable
 
 
 class SMA(Observable):
+
     def __init__(self, w, h, number):
         super().__init__()
+
+        # On cree l'environnement
+        self.environnement = Environnement(w, h, self, False)
 
         # Generer toutes les permutations possibles
         every_possible_tuple_position = [i for i in product(range(max(w, h)), repeat=2)]
@@ -23,7 +28,8 @@ class SMA(Observable):
         positions = sample(every_possible_tuple_position, number)
 
         # On cree les agents
-        self.agent_list = [Agent("color", p[0], p[1]) for p in positions]
+        self.agent_list = [Agent("color", p[0], p[1], self.environnement) for p in positions]
+
 
     def run(self):
         pass
