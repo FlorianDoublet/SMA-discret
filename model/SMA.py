@@ -32,4 +32,8 @@ class SMA(Observable):
 
 
     def run(self):
-        pass
+        agents_size = len(self.agent_list)
+        # cree un random de la taille de la liste d'agent, avec aucun doublon, donc de 0 à taille de la liste
+        random_order = sample(range(0, agents_size), agents_size)
+        # on lance donc en fonction de l'ordre random la methode .decide sur l'agent qu'on pioche dans la liste des agents
+        map(lambda x: self.agent_list[x].decide(), random_order)
