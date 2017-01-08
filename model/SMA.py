@@ -17,8 +17,6 @@ class SMA(Observable):
 
         # Generer toutes les permutations possibles
         every_possible_tuple_position = [i for i in product(range(max(w, h)), repeat=2)]
-        for p in every_possible_tuple_position:
-            print(p)
 
         index = 0
         if h > w:
@@ -32,7 +30,6 @@ class SMA(Observable):
         # On cree les agents
         self.agent_list = [Agent(self.random_color(), p[0], p[1], self.environnement) for p in positions]
 
-
     def run(self):
         """
         effectue le tour de parole
@@ -41,7 +38,12 @@ class SMA(Observable):
         agents_size = len(self.agent_list)
         # cree un random de la taille de la liste d'agent, avec aucun doublon, donc de 0 à taille de la liste
         random_order = sample(range(0, agents_size), agents_size)
+
         # on lance donc en fonction de l'ordre random la methode .decide sur l'agent qu'on pioche dans la liste des agents
+
+        for i in random_order:
+            self.agent_list[i].decide()
+
         map(lambda x: self.agent_list[x].decide(), random_order)
 
         # on notifie les observers que l'environnement a change

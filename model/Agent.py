@@ -25,8 +25,6 @@ class Agent:
         self.reset_old_position_in_env()
         self.environnement.set_agent(self)
 
-
-
     def decide(self):
         """
         decide quoi faire pour le mouvement de la particule (si elle se contente d'avancer ou non en cas de collision)
@@ -40,7 +38,7 @@ class Agent:
 
         if collision:
             # si il y a une collision
-            if type(collision) is Agent :
+            if type(collision) is Agent:
                 agent_col = collision
                 # Si la collision est un Agent, alors on inverse les directions des deux agents
                 # et on n'update pas ( on avance pas )
@@ -60,8 +58,6 @@ class Agent:
             self.y = y
             self.update()
 
-
-
     def wall_collision(self, mur):
         # on va dans l'axe oppose du mur rencontré
         for direction in self.default_direction:
@@ -78,7 +74,7 @@ class Agent:
 
     def next_position(self):
         """
-        donne la prochaine position celon la direciton de la particule
+        donne la prochaine position selon la direction de la particule
         :return: x, y qui correspondent a la position
         """
         dir = self.default_direction

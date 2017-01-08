@@ -4,8 +4,8 @@ from vue.Vue import Vue
 class Main:
 
     def __init__(self):
-        sma = SMA(300, 300, 500)
-        vue = Vue(300, 300)
+        sma = SMA(50, 50, 1)
+        vue = Vue(50, 50)
 
         sma.register(vue)
 

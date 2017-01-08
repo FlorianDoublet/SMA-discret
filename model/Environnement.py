@@ -17,7 +17,6 @@ class Environnement:
     def get_grille(self):
         return self.grille2d
 
-
     def is_their_a_collision(self, x, y):
         """
         Methode pour voir si il y a une quelquonque collision
@@ -26,14 +25,15 @@ class Environnement:
         :param y: prochaine position y de l'agent
         :return: un agent percute, soit un mur traverse, soit rien
         """
-        potential_agent = self.grille2d[y][x]
-        if potential_agent:
-            # si il y a collision avec un autre agent, on renvois cet agent
-            return potential_agent
 
         if y < 0 or x < 0 or x > self.w-1 or y > self.h-1:
             # si il y a collision avec un mur
             return self.wall_collision_direction(x, y, self.w-1, self.h-1)
+
+        potential_agent = self.grille2d[y][x]
+        if potential_agent:
+            # si il y a collision avec un autre agent, on renvois cet agent
+            return potential_agent
 
     @staticmethod
     def wall_collision_direction(x, y, max_x, max_y):
