@@ -53,16 +53,17 @@ class Agent:
                 return
         else:
             # their is no collision so we can update the position of our Agent
-            self.save_previous_pos
+            self.save_previous_pos()
             self.x = x
             self.y = y
             self.update()
 
     def wall_collision(self, mur):
         # on va dans l'axe oppose du mur rencontré
-        for direction in self.default_direction:
-            if direction in mur:
-                direction = self._inverse_directions[direction]
+        for i in range(len(self.default_direction)):
+            dir = self.default_direction[i]
+            if dir in mur:
+                self.default_direction[i] = self._inverse_directions[dir]
 
     def random_direction(self):
         """

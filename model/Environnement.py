@@ -11,8 +11,9 @@ class Environnement:
     def set_agent(self, agent):
         self.grille2d[agent.y][agent.x] = agent
 
+
     def delete_agent(self, agent):
-        self.grille2d[agent.y][agent.x] = None
+        self.grille2d[agent.previous_y][agent.previous_x] = None
 
     def get_grille(self):
         return self.grille2d
@@ -58,9 +59,9 @@ class Environnement:
         if y > max_y:
             return "down"
         if x < 0:
-            return "right"
-        if x > max_x:
             return "left"
+        if x > max_x:
+            return "right"
 
 
 

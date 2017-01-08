@@ -13,7 +13,6 @@ class Vue(Observer):
         self.window.setBackground(self.cell_color)
 
     def update(self, *args, **kwargs):
-        self.window.redraw()
         environnement = args[0]
         agents = environnement.SMA.agent_list
 
@@ -21,6 +20,7 @@ class Vue(Observer):
             pt = Point(agent.x, agent.y)
             pt.setFill(agent.color)
             pt.draw(self.window)
+        self.window.delete("all")
 
     def end_draw(self):
         self.window.getMouse()
