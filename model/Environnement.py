@@ -14,6 +14,9 @@ class Environnement:
     def delete_agent(self, agent):
         self.grille2d[agent.y][agent.x] = None
 
+    def get_grille(self):
+        return self.grille2d
+
 
     def is_their_a_collision(self, x, y):
         """

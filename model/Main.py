@@ -9,7 +9,8 @@ class Main:
 
         sma.register(vue)
 
-        sma.update_observers(sma.agent_list)
+        while(True):
+            sma.run()
 
         vue.end_draw()
 
