@@ -5,10 +5,10 @@ from random import randrange
 
 class Agent:
 
-    _directions = [["up"], ["down"], ["right"], ["left"], ["up", "right"], ["up", "left"], ["down", "right"], ["down", "left"]]
-    _inverse_directions = { "up" : "down", "down" : "up", "left" : "right", "right" : "left" }
-
     def __init__(self, color, x, y, environnement):
+        self._directions = [["up"], ["down"], ["right"], ["left"], ["up", "right"], ["up", "left"], ["down", "right"], ["down", "left"]]
+        self._inverse_directions = {"up": "down", "down": "up", "left": "right", "right": "left"}
+
         self.color = color
         self.x = x
         self.y = y
