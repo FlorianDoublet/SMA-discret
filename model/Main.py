@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 from model.SMA import SMA
 from vue.Vue import Vue
 from time import sleep
@@ -5,7 +7,7 @@ from time import sleep
 class Main:
 
     def __init__(self):
-        sma = SMA(300, 300, 50)
+        sma = SMA(300, 300, 1)
         vue = Vue(300, 300)
 
         sma.register(vue)

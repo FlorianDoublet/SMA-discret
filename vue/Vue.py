@@ -1,4 +1,3 @@
-from graphics import *
 from tkinter import *
 from model.Agent import *
 from model.Environnement import *
@@ -10,7 +9,7 @@ class Vue(Observer):
         self.w = w
         self.h = h
         self.fen = Tk()
-        self.canvas = tk.Canvas(self.fen, bg="blue", height=h, width=w)
+        self.canvas = Canvas(self.fen, bg="blue", height=h, width=w)
         self.canvas.pack()
         self.fen.update_idletasks()
         self.fen.update()
@@ -21,10 +20,9 @@ class Vue(Observer):
         self.canvas.delete("all")
         agents = environnement.SMA.agent_list
         for agent in agents:
-            pt = Point(agent.x, agent.y)
-            pt.setFill(agent.color)
             id = self.canvas.create_oval(10, 10, 25, 25, fill=agent.color)
             self.canvas.move(id, agent.x, agent.y)
+
         self.fen.update_idletasks()
         self.fen.update()
 

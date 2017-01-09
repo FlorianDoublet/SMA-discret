@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 from random import sample, randrange
 from itertools import product
 from model.Agent import Agent
