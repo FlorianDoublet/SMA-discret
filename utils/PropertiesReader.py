@@ -72,4 +72,15 @@ class PropertiesReader:
 			return (int(string_color[0]), int(string_color[1]), string_color[2])
 		else:
 			return False
+	def view(self):
+		views = self.specific_param["view"]
+		for view in views:
+			for key, val in view.items():
+				if val:
+					view_import = ""
+					if key == "tkinter":
+						view_import = "vue.VueTkinter"
+					elif key == "PyGame":
+						view_import = "vue.VuePyGame"
+					return view_import
 

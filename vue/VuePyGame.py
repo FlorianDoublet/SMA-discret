@@ -4,7 +4,7 @@ from pygame.locals import *
 from utils.PropertiesReader import PropertiesReader
 
 
-class VueGame(Observer):
+class Vue(Observer):
     def __init__(self):
         self.prop = PropertiesReader.prop
 

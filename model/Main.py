@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 from model.SMA import SMA
-from vue.Vue import Vue
-from vue.VueGame import VueGame
+#from vue.Vue import Vue
+#from vue.VueGame import VueGame
 from time import sleep
 from utils.PropertiesReader import PropertiesReader
 
@@ -16,11 +16,13 @@ class Main:
         tick = prop.nb_tick()
 
         sma = SMA()
-        vue = Vue()
-        vue_game = VueGame()
+        s = __import__(prop.view(), globals(), locals(), ['*'])
+        vue = s.Vue()
+        print(vue)
+        #vue_game = VueGame()
 
         sma.register(vue)
-        sma.register(vue_game)
+        #sma.register(vue_game)
         i = 0
         while i <= tick:
             sma.run()
