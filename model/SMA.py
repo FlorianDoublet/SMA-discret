@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from random import sample, randrange, shuffle
+import random
 from itertools import product
 from model.Agent import Agent
 from model.Environnement import Environnement
@@ -16,6 +16,10 @@ class SMA(Observable):
         self.prop = PropertiesReader.prop
         w, h = self.prop.grid_size()
         number = self.prop.nb_particles()
+        self.sheduling = self.prop.sheduling()
+        seed = self.prop.random_seed()
+        if seed != 0:
+            random.seed(seed)
 
         # On cree l'environnement
         self.environnement = Environnement(w, h, self)
@@ -30,7 +34,7 @@ class SMA(Observable):
         every_possible_tuple_position = [i for i in every_possible_tuple_position if i[index] < min(w, h)]
 
         # Recuperer x valeurs de toutes les permutations possible sans doublons
-        positions = sample(every_possible_tuple_position, number)
+        positions = random.sample(every_possible_tuple_position, number)
 
         # On cree les agents
         self.agent_list = [Agent(self.random_color(), p[1], p[0], self.environnement) for p in positions]
@@ -40,24 +44,29 @@ class SMA(Observable):
         effectue le tour de parole
         :return:
         """
-        agents_size = len(self.agent_list)
-        # cree un random de la taille de la liste d'agent, avec aucun doublon, donc de 0 à taille de la liste
-        #random_order = sample(range(0, agents_size), agents_size)
-        shuffle(self.agent_list)
+        list_after_schedule = self.apply_sheduling()
 
         # on lance donc en fonction  de l'ordre random la methode .decide sur l'agent qu'on pioche dans la liste des agents
-
-        """for i in range(agents_size):
-            self.agent_list[i].decide()"""
-        for agent in self.agent_list:
+        for agent in list_after_schedule:
             agent.decide()
 
         # on notifie les observers que l'environnement a change
-        # et on leurs donne donc l'environnement
-        # a note on ne notifie que lorsque tout a bouge
         self.set_changed()
         self.notify_observers(self.environnement)
 
     def random_color(self):
         color_list_size = len(self._color_list)
-        return self._color_list[randrange(color_list_size)]
+        return self._color_list[random.randrange(color_list_size)]
+
+    def apply_sheduling(self):
+        if self.sheduling == "equitable":
+            random.shuffle(self.agent_list)
+            return self.agent_list
+        elif self.sheduling == "sequential":
+            return self.agent_list
+        elif self.sheduling == "random":
+            size = len(self.agent_list)
+            random_order = []
+            for i in range(size):
+                random_order.append(self.agent_list[random.randrange(size)])
+            return random_order

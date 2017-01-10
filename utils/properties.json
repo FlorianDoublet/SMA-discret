@@ -11,9 +11,9 @@
     },
 
     "box_size" : 10,
-    "delay_ms" : 10,
+    "delay_ms" : 100,
     "sheduling" : [ {"equitable" : true}, {"sequential" : false}, {"random" : false} ],
-    "nb_tick" : 1,
+    "nb_tick" : 100,
     "print_grid" : true,
     "trace" : false,
     "random_seed" : 0,
@@ -22,7 +22,9 @@
   },
 
   "specific_parameter" : {
-    "nb_particles" : 5
+    "nb_particles" : 5,
+    "canvas_background_color" : "darkblue",
+    "grid_color" : "black"
   }
 
 }

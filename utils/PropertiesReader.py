@@ -58,3 +58,9 @@ class PropertiesReader:
 
 	def nb_particles(self):
 		return self.specific_param["nb_particles"]
+
+	def canvas_background_color(self):
+		return self.specific_param["canvas_background_color"]
+
+	def grid_color(self):
+		return self.specific_param["grid_color"]
