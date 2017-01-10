@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 from model.SMA import SMA
 from vue.Vue import Vue
+from vue.VueGame import VueGame
 from time import sleep
 from utils.PropertiesReader import PropertiesReader
 
@@ -16,8 +17,10 @@ class Main:
 
         sma = SMA()
         vue = Vue()
+        vue_game = VueGame()
 
         sma.register(vue)
+        sma.register(vue_game)
         i = 0
         while i <= tick:
             sma.run()

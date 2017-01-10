@@ -1,14 +1,17 @@
-from observerPattern.observer import Observer
 import pygame
+from observerPattern.observer import Observer
 from pygame.locals import *
+from utils.PropertiesReader import PropertiesReader
+
 
 class VueGame(Observer):
+    def __init__(self):
+        self.prop = PropertiesReader.prop
 
-
-    def __init__(self, w, h, box_size):
-        self.w = w
-        self.h = h
-        self.box_size = box_size
+        self.w, self.h = self.prop.grid_size()
+        self.box_size = self.prop.box_size()
+        self.tick = 0
+        self.refresh = self.prop.refresh()
 
         self.key_to_function = {
             pygame.K_LEFT: (lambda x: x.scroll(dx=1)),
@@ -21,25 +24,34 @@ class VueGame(Observer):
 
         self.clock = pygame.time.Clock()
         pygame.init()
-        self.window = pygame.display.set_mode(((w*box_size), (h*box_size)))
-        self.universe_screen = UniverseScreen((w*box_size), (h*box_size))
+
+        fen_w, fen_h = self.prop.canvas_size()
+        fen_w = min(fen_w, self.w * self.box_size)
+        fen_h = min(fen_h, self.h * self.box_size)
+
+        self.window = pygame.display.set_mode((fen_w, fen_h))
+        self.universe_screen = UniverseScreen((self.w*self.box_size), (self.h*self.box_size))
         self.window.set_alpha(None) #Speeding up by removing the alpha channel
 
     def draw_grid(self):
+        if not self.prop.print_grid():
+            pass
+
+        grid_color = self.prop.grid_color()
+
         h = self.h * self.box_size
         w = self.w * self.box_size
 
-        offset_x = int(self.universe_screen.mx + (self.universe_screen.dx) * self.universe_screen.magnification)
-        offset_y = int(self.universe_screen.my + (self.universe_screen.dy) * self.universe_screen.magnification)
-
+        offset_x = int(self.universe_screen.mx + self.universe_screen.dx * self.universe_screen.magnification)
+        offset_y = int(self.universe_screen.my + self.universe_screen.dy * self.universe_screen.magnification)
         box_size = int(self.box_size * self.universe_screen.magnification)
 
         if self.box_size > 1:
             for i in range(0, h-offset_y, box_size):
-                pygame.draw.line(self.window, Color('black'), (offset_x, i+offset_y), (w+offset_x, i+offset_y))
+                pygame.draw.line(self.window, Color(grid_color), (offset_x, i+offset_y), (w+offset_x, i+offset_y))
 
             for j in range(0, w-offset_x, box_size):
-                pygame.draw.line(self.window, Color('black'), (j+offset_x, offset_y), (j+offset_x, h+offset_y))
+                pygame.draw.line(self.window, Color(grid_color), (j+offset_x, offset_y), (j+offset_x, h+offset_y))
 
     def update(self, *args, **kwargs):
         #self.clock.tick(60)  # 60 frame per second
@@ -54,7 +66,7 @@ class VueGame(Observer):
         environnement = args[0]
         agents = environnement.SMA.agent_list
 
-        self.window.fill(Color('darkblue'))
+        self.window.fill(Color(self.prop.canvas_background_color()))
         self.draw_grid()
 
         for agent in agents:
@@ -71,7 +83,9 @@ class VueGame(Observer):
                                (x,y),
                                size)
 
-        pygame.display.flip()
+        if (self.tick % self.refresh) == 0:
+            pygame.display.flip()
+        self.tick += 1
 
 
 class UniverseScreen:
