@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import random
-from base64 import b16encode
 from itertools import product
 from model.Agent import Agent
 from model.Environnement import Environnement
@@ -9,8 +8,6 @@ from observerPattern.observable import Observable
 from utils.PropertiesReader import PropertiesReader
 
 class SMA(Observable):
-
-    _color_list = ["white", "red", "green", "yellow"]
 
     def __init__(self):
         super().__init__()

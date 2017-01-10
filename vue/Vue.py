@@ -10,12 +10,23 @@ class Vue(Observer):
         self.tick = 0
         self.refresh = self.prop.refresh()
         self.fen = Tk()
+        max_height_size = self.h*self.box_size
+        max_width_size = self.w*self.box_size
+        self.fen.maxsize(width=max_width_size+22, height=max_height_size+22)
         fen_w, fen_h = self.prop.canvas_size()
-        # taille en pixel pour la fenetre
-        self.fen.geometry(str(fen_w) + 'x' + str(fen_h))
-
-        self.canvas = Canvas(self.fen, bg=self.prop.canvas_background_color(), height=self.h*self.box_size, width=self.w*self.box_size)
-        self.canvas.pack()
+        frame = Frame(self.fen, width=fen_w, height=fen_h)
+        frame.grid(row=0, column=0)
+        frame.pack(fill=BOTH, expand=YES)
+        self.canvas = Canvas(frame, bg=self.prop.canvas_background_color(), height=max_height_size, width=max_width_size, scrollregion=(0,0,max_width_size,max_height_size))
+        hbar = Scrollbar(frame, orient=HORIZONTAL)
+        hbar.pack(side=BOTTOM, fill=X)
+        hbar.config(command=self.canvas.xview)
+        vbar = Scrollbar(frame, orient=VERTICAL)
+        vbar.pack(side=RIGHT, fill=Y)
+        vbar.config(command=self.canvas.yview)
+        self.canvas.config(width=fen_w, height=fen_h)
+        self.canvas.config(xscrollcommand=hbar.set, yscrollcommand=vbar.set)
+        self.canvas.pack(side=LEFT, expand=True, fill=BOTH)
         self.repaint()
 
     def draw_grid(self):

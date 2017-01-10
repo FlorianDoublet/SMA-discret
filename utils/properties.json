@@ -13,9 +13,9 @@
     "box_size" : 10,
     "delay_ms" : 100,
     "sheduling" : [ {"equitable" : true}, {"sequential" : false}, {"random" : false} ],
-    "nb_tick" : 100,
+    "nb_tick" : 0,
     "print_grid" : true,
-    "trace" : true,
+    "trace" : false,
     "random_seed" : 0,
     "refresh" : 1,
     "toric" : false
