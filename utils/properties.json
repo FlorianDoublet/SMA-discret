@@ -1,0 +1,30 @@
+{
+  "general_parameter" : {
+    "grid_size" : {
+    "grid_size_x" : 10,
+    "grid_size_y" : 10
+    },
+
+    "canvas_size" : {
+      "canvas_size_x" : 400,
+      "canvas_size_y" : 400
+    },
+
+    "box_size" : 10,
+    "delay_ms" : 100,
+    "sheduling" : [ {"equitable" : true}, {"sequential" : false}, {"random" : false} ],
+    "nb_tick" : 100,
+    "print_grid" : true,
+    "trace" : true,
+    "random_seed" : 0,
+    "refresh" : 1,
+    "toric" : false
+  },
+
+  "specific_parameter" : {
+    "nb_particles" : 5,
+    "canvas_background_color" : "darkblue",
+    "grid_color" : "black"
+  }
+
+}
