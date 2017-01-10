@@ -2,12 +2,12 @@
 # -*- coding: utf-8 -*-
 from random import randrange
 
+from model.Direction import Direction
+
 
 class Agent:
 
     def __init__(self, color, x, y, environnement):
-        self._directions = [["up"], ["down"], ["right"], ["left"], ["up", "right"], ["up", "left"], ["down", "right"], ["down", "left"]]
-        self._inverse_directions = {"up": "down", "down": "up", "left": "right", "right": "left"}
 
         self.color = color
         self.x = x
@@ -17,7 +17,7 @@ class Agent:
         self.environnement.set_agent(self)
         self.previous_x = None
         self.previous_y = None
-        self.default_direction = self.random_direction()
+        self.direction = Direction()  # without parameter it's a random direction
 
     def update(self):
         """
@@ -36,6 +36,7 @@ class Agent:
         # la prochain position selon la direction
         x, y = self.next_position()
 
+
         collision = self.environnement.is_their_a_collision(x, y)
 
         if collision:
@@ -44,12 +45,12 @@ class Agent:
                 agent_col = collision
                 # Si la collision est un Agent, alors on inverse les directions des deux agents
                 # et on n'update pas ( on avance pas )
-                tmp_dir = agent_col.default_direction
-                agent_col.default_direction = self.default_direction
-                self.default_direction = tmp_dir
+                tmp_dir = agent_col.direction
+                agent_col.direction = self.direction
+                self.direction = tmp_dir
                 return
 
-            elif type(collision) is str or type(collision) is list :
+            elif type(collision) is tuple:
                 # Si c'est une string ou une list alors c'est une collision avec un mur
                 self.wall_collision(collision)
                 return
@@ -60,12 +61,13 @@ class Agent:
             self.y = y
             self.update()
 
-    def wall_collision(self, mur):
-        # on va dans l'axe oppose du mur rencontré
-        for i in range(len(self.default_direction)):
-            dir = self.default_direction[i]
-            if dir in mur:
-                self.default_direction[i] = self._inverse_directions[dir]
+    def wall_collision(self, wall_inv):
+        # on inverse l'axe x et ou y selon les valeurs du tuple --> [0] = x_axis, [1] = y_axis
+        if wall_inv[0]:
+            self.direction.inverse_x_axis()
+        if wall_inv[1]:
+            self.direction.inverse_y_axis()
+
 
     def random_direction(self):
         """
@@ -80,18 +82,7 @@ class Agent:
         donne la prochaine position selon la direction de la particule
         :return: x, y qui correspondent a la position
         """
-        dir = self.default_direction
-        y = self.y
-        x = self.x
-
-        if "up" in dir :
-            y -= 1
-        if "down" in dir :
-            y += 1
-        if "left" in dir:
-            x -= 1
-        if "right" in dir:
-            x += 1
+        x, y = self.direction.iterate(self.x, self.y)
 
         if self.environnement.is_torrique:
             y_max = self.environnement.h-1

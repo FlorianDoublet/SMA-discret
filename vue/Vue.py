@@ -35,5 +35,4 @@ class Vue(Observer):
         self.fen.update()
 
     def end_draw(self):
-        self.window.getMouse()
-        self.window.close()
+        pass
