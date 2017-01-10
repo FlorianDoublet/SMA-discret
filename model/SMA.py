@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import random
+from base64 import b16encode
 from itertools import product
 from model.Agent import Agent
 from model.Environnement import Environnement
@@ -14,6 +15,7 @@ class SMA(Observable):
     def __init__(self):
         super().__init__()
         self.prop = PropertiesReader.prop
+        self.tick = 1
         w, h = self.prop.grid_size()
         number = self.prop.nb_particles()
         self.sheduling = self.prop.sheduling()
@@ -53,10 +55,21 @@ class SMA(Observable):
         # on notifie les observers que l'environnement a change
         self.set_changed()
         self.notify_observers(self.environnement)
+        if self.prop.trace():
+            self.print_tick()
+        self.tick += 1
 
     def random_color(self):
-        color_list_size = len(self._color_list)
-        return self._color_list[random.randrange(color_list_size)]
+        de = ("%02x" % random.randint(0, 255))
+        re = ("%02x" % random.randint(0, 255))
+        we = ("%02x" % random.randint(0, 255))
+        ge = "#"
+        color = ge + de + re + we
+        return color
+
+    def print_tick(self):
+        print("Tick;"+str(self.tick))
+
 
     def apply_sheduling(self):
         if self.sheduling == "equitable":

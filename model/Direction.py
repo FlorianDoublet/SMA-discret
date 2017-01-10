@@ -34,3 +34,15 @@ class Direction:
 
     def inverse_y_axis(self):
         self.y_axis *= -1
+
+    def to_string(self):
+        dir = ""
+        if self.y_axis == -1:
+            dir += "up"
+        elif self.y_axis == 1:
+            dir += "down"
+        elif self.x_axis == -1:
+            dir += "left"
+        elif self.x_axis == 1:
+            dir += "right"
+        return dir

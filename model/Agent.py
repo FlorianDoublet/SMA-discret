@@ -3,7 +3,7 @@
 from random import randrange
 
 from model.Direction import Direction
-
+from utils.PropertiesReader import PropertiesReader
 
 class Agent:
 
@@ -18,6 +18,7 @@ class Agent:
         self.previous_x = None
         self.previous_y = None
         self.direction = Direction()  # without parameter it's a random direction
+        self.old_dir = self.direction
 
     def update(self):
         """
@@ -45,9 +46,14 @@ class Agent:
                 agent_col = collision
                 # Si la collision est un Agent, alors on inverse les directions des deux agents
                 # et on n'update pas ( on avance pas )
+                self.old_dir = self.direction
                 tmp_dir = agent_col.direction
+                agent_col.old_direction = agent_col.direction
                 agent_col.direction = self.direction
                 self.direction = tmp_dir
+                if PropertiesReader.prop.trace():
+                    self.print_direct_change("agent-col")
+                    agent_col.print_direct_change("agent-col")
                 return
 
             elif type(collision) is tuple:
@@ -67,15 +73,10 @@ class Agent:
             self.direction.inverse_x_axis()
         if wall_inv[1]:
             self.direction.inverse_y_axis()
+        if PropertiesReader.prop.trace():
+            self.print_direct_change("wall-col")
 
 
-    def random_direction(self):
-        """
-        choisit une direction random parmis le voisinage de Moore
-        :return:
-        """
-        direction_size = len(self._directions)
-        return self._directions[randrange(direction_size)]
 
     def next_position(self):
         """
@@ -106,5 +107,8 @@ class Agent:
 
     def reset_old_position_in_env(self):
         self.environnement.delete_agent(self)
+
+    def print_direct_change(self, cause):
+        print("Agent;before;" + self.old_dir.to_string() + ";after;" + self.direction.to_string() + ";at;x;"+str(self.x) + ";y;"+str(self.y)+";cause;"+cause)
 
 

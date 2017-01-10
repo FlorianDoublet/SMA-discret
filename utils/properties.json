@@ -15,7 +15,7 @@
     "sheduling" : [ {"equitable" : true}, {"sequential" : false}, {"random" : false} ],
     "nb_tick" : 100,
     "print_grid" : true,
-    "trace" : false,
+    "trace" : true,
     "random_seed" : 0,
     "refresh" : 1,
     "toric" : false
