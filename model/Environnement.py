@@ -48,24 +48,19 @@ class Environnement:
         :param y: prochaine position y de l'agent
         :param max_x: borne max de x
         :param max_y: borne max de y
-        :return: la "position" ou "direction" (on peux le voir comme on veux) du mur percute ou traverse
+        :return: un tuple de boolean pour dire quels axes on inverse (x, y, ou les deux)
         """
-        if y < 0 and x < 0:
-            return ["up", "left"]
-        if y > max_y and x < 0:
-            return ["down", "left"]
-        if y < 0 and x > max_x:
-            return ["up", "right"]
-        if y > max_y and x > max_x:
-            return ["down", "right"]
-        if y < 0:
-            return "up"
-        if y > max_y:
-            return "down"
-        if x < 0:
-            return "left"
-        if x > max_x:
-            return "right"
+
+        inverse_x_dir = False
+        inverse_y_dir = False
+        if y < 0 or y > max_y:
+            # murhautbas
+            inverse_y_dir = True
+        if x < 0 or x > max_x:
+            # murscote
+            inverse_x_dir = True
+
+        return (inverse_x_dir, inverse_y_dir)
 
 
 

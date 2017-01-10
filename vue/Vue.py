@@ -19,10 +19,10 @@ class Vue(Observer):
 
     def draw_grid(self):
         if self.box_size > 1:
-            for i in range(0, self.w * self.box_size, self.box_size):
-                self.canvas.create_line(0, i, self.h*self.box_size, i, fill='black')
+            for i in range(0, self.h * self.box_size, self.box_size):
+                self.canvas.create_line(0, i, self.w*self.box_size, i, fill='black')
 
-            for j in range(0, self.h * self.box_size, self.box_size):
+            for j in range(0, self.w * self.box_size, self.box_size):
                 self.canvas.create_line(j, 0, j, self.h*self.box_size, fill='black')
 
     def update(self, *args, **kwargs):
@@ -39,5 +39,4 @@ class Vue(Observer):
         self.fen.update()
 
     def end_draw(self):
-        self.window.getMouse()
-        self.window.close()
+        pass

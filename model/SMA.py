@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from random import sample, randrange
+from random import sample, randrange, shuffle
 from itertools import product
 from model.Agent import Agent
 from model.Environnement import Environnement
@@ -33,7 +33,7 @@ class SMA(Observable):
         positions = sample(every_possible_tuple_position, number)
 
         # On cree les agents
-        self.agent_list = [Agent(self.random_color(), p[0], p[1], self.environnement) for p in positions]
+        self.agent_list = [Agent(self.random_color(), p[1], p[0], self.environnement) for p in positions]
 
     def run(self):
         """
@@ -42,12 +42,15 @@ class SMA(Observable):
         """
         agents_size = len(self.agent_list)
         # cree un random de la taille de la liste d'agent, avec aucun doublon, donc de 0 à taille de la liste
-        random_order = sample(range(0, agents_size), agents_size)
+        #random_order = sample(range(0, agents_size), agents_size)
+        shuffle(self.agent_list)
 
-        # on lance donc en fonction de l'ordre random la methode .decide sur l'agent qu'on pioche dans la liste des agents
+        # on lance donc en fonction  de l'ordre random la methode .decide sur l'agent qu'on pioche dans la liste des agents
 
-        for i in random_order:
-            self.agent_list[i].decide()
+        """for i in range(agents_size):
+            self.agent_list[i].decide()"""
+        for agent in self.agent_list:
+            agent.decide()
 
         # on notifie les observers que l'environnement a change
         # et on leurs donne donc l'environnement
