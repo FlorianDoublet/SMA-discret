@@ -6,6 +6,7 @@ from model.Agent import Agent
 from model.Environnement import Environnement
 from observerPattern.observable import Observable
 from utils.PropertiesReader import PropertiesReader
+import tkinter
 
 class SMA(Observable):
 
@@ -57,9 +58,18 @@ class SMA(Observable):
         self.tick += 1
 
     def random_color(self):
-        de = ("%02x" % random.randint(0, 255))
-        re = ("%02x" % random.randint(0, 255))
-        we = ("%02x" % random.randint(0, 255))
+        d = random.randint(0, 255)
+        r = random.randint(0, 255)
+        w = random.randint(0, 255)
+        mix = self.prop.random_mix_color()
+        if mix :
+            d = int((d + mix[0]) / 2)
+            r = int((r + mix[0]) / 2)
+            w = int((w + mix[0]) / 2)
+
+        de = ("%02x" % d)
+        re = ("%02x" % r)
+        we = ("%02x" % w)
         ge = "#"
         color = ge + de + re + we
         return color

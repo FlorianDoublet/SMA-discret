@@ -1,8 +1,8 @@
 {
   "general_parameter" : {
     "grid_size" : {
-    "grid_size_x" : 10,
-    "grid_size_y" : 10
+    "grid_size_x" : 50,
+    "grid_size_y" : 50
     },
 
     "canvas_size" : {
@@ -22,9 +22,10 @@
   },
 
   "specific_parameter" : {
-    "nb_particles" : 5,
+    "nb_particles" : 50,
     "canvas_background_color" : "darkblue",
-    "grid_color" : "black"
+    "grid_color" : "black",
+    "random_mix_color" : [true, "255,255,255"]
   }
 
 }
