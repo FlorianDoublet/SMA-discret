@@ -30,7 +30,7 @@ class SMA(Observable):
         positions = sample(every_possible_tuple_position, number)
 
         # On cree les agents
-        self.agent_list = [Agent(self.random_color(), p[0], p[1], self.environnement) for p in positions]
+        self.agent_list = [Agent(self.random_color(), p[1], p[0], self.environnement) for p in positions]
 
     def run(self):
         """

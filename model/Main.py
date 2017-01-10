@@ -9,10 +9,10 @@ import time
 class Main:
 
     def __init__(self):
-        w = 10
+        w = 15
         h = 10
-        n = 5
-        box_size = 80
+        n = 8
+        box_size = 30
 
         sma = SMA(w, h, n)
         vue = Vue(w, h, box_size)
@@ -25,7 +25,7 @@ class Main:
         while(i < 3000000):
             sma.run()
             i += 1
-            sleep(0.02)
+            sleep(0.5)
 
         vue.end_draw()
 
