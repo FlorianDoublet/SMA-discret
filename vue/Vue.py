@@ -1,14 +1,18 @@
 from tkinter import *
 from observerPattern.observer import Observer
-
+from utils.PropertiesReader import PropertiesReader
 
 class Vue(Observer):
-    def __init__(self, w, h, box_size):
-        self.w = w
-        self.h = h
-        self.box_size = box_size
+    def __init__(self):
+        self.prop = PropertiesReader.prop
+        self.w, self.h = self.prop.grid_size()
+        self.box_size = self.prop.box_size()
         self.fen = Tk()
-        self.canvas = Canvas(self.fen, bg="darkblue", height=h*self.box_size, width=w*self.box_size)
+        fen_w, fen_h = self.prop.canvas_size()
+        # taille en pixel pour la fenetre
+        self.fen.geometry(str(fen_w) + 'x' + str(fen_h))
+
+        self.canvas = Canvas(self.fen, bg="darkblue", height=self.h*self.box_size, width=self.w*self.box_size)
         self.canvas.pack()
         self.fen.update_idletasks()
         self.fen.update()

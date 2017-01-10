@@ -5,17 +5,20 @@ from itertools import product
 from model.Agent import Agent
 from model.Environnement import Environnement
 from observerPattern.observable import Observable
-
+from utils.PropertiesReader import PropertiesReader
 
 class SMA(Observable):
 
     _color_list = ["white", "red", "green", "yellow"]
 
-    def __init__(self, w, h, number):
+    def __init__(self):
         super().__init__()
+        self.prop = PropertiesReader.prop
+        w, h = self.prop.grid_size()
+        number = self.prop.nb_particles()
 
         # On cree l'environnement
-        self.environnement = Environnement(w, h, self, False)
+        self.environnement = Environnement(w, h, self)
 
         # Generer toutes les permutations possibles
         every_possible_tuple_position = [i for i in product(range(max(w, h)), repeat=2)]
@@ -45,8 +48,6 @@ class SMA(Observable):
 
         for i in random_order:
             self.agent_list[i].decide()
-
-        map(lambda x: self.agent_list[x].decide(), random_order)
 
         # on notifie les observers que l'environnement a change
         # et on leurs donne donc l'environnement

@@ -3,27 +3,31 @@
 from model.SMA import SMA
 from vue.Vue import Vue
 from time import sleep
-
+from utils.PropertiesReader import PropertiesReader
 
 class Main:
 
     def __init__(self):
-        w = 20
-        h = 20
-        n = 5
-        box_size = 10
 
-        sma = SMA(w, h, n)
-        vue = Vue(w, h, box_size)
+        PropertiesReader()
+        prop = PropertiesReader.prop
+        delay = self.millis_to_sec(prop.delay_ms())
+        tick = prop.nb_tick()
+
+        sma = SMA()
+        vue = Vue()
 
         sma.register(vue)
-
-        while(True):
+        i = 0
+        while i <= tick:
             sma.run()
-            sleep(0.2)
+            sleep(delay)
+            if tick > 0:
+                i += 1
 
         vue.end_draw()
 
-
+    def millis_to_sec(self, millis):
+        return (millis/1000) % 60
 if __name__ == '__main__':
     Main()
