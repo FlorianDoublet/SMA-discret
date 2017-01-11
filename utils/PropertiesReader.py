@@ -8,7 +8,9 @@ class PropertiesReader:
 
 	def __init__(self):
 
-		with open('../utils/properties.json') as json_data:
+
+
+		with open('../../utils/properties.json') as json_data:
 			self.properties = json.load(json_data)
 		self.general_param = self.properties["general_parameter"]
 		self.specific_param = self.properties["specific_parameter"]
