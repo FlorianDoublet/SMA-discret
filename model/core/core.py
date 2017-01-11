@@ -70,7 +70,6 @@ class Core(Observable):
     def print_tick(self):
         print("Tick;"+str(self.tick))
 
-
     def apply_sheduling(self):
         if self.sheduling == "equitable":
             random.shuffle(self.agent_list)

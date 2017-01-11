@@ -31,7 +31,7 @@ class Particle(Agent):
 
         if collision:
             # si il y a une collision
-            if type(collision) is Agent:
+            if isinstance(collision, Agent):
                 agent_col = collision
                 # Si la collision est un Agent, alors on inverse les directions des deux agents
                 # et on n'update pas ( on avance pas )
