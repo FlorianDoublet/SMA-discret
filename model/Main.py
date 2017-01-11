@@ -18,11 +18,8 @@ class Main:
         sma = SMA()
         s = __import__(prop.view(), globals(), locals(), ['*'])
         vue = s.Vue()
-        print(vue)
-        #vue_game = VueGame()
-
         sma.register(vue)
-        #sma.register(vue_game)
+
         i = 0
         while i <= tick:
             sma.run()

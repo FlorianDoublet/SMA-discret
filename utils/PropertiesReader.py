@@ -69,7 +69,7 @@ class PropertiesReader:
 		if self.specific_param["random_mix_color"][0]:
 			string_color = self.specific_param["random_mix_color"][1]
 			string_color = string_color.split(",")
-			return (int(string_color[0]), int(string_color[1]), string_color[2])
+			return (int(string_color[0]), int(string_color[1]), int(string_color[2]))
 		else:
 			return False
 	def view(self):

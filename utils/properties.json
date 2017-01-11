@@ -1,8 +1,8 @@
 {
   "general_parameter" : {
     "grid_size" : {
-    "grid_size_x" : 50,
-    "grid_size_y" : 50
+    "grid_size_x" : 100,
+    "grid_size_y" : 100
     },
 
     "canvas_size" : {
@@ -10,8 +10,8 @@
       "canvas_size_y" : 400
     },
 
-    "box_size" : 10,
-    "delay_ms" : 100,
+    "box_size" : 15,
+    "delay_ms" : 10,
     "sheduling" : [ {"equitable" : true}, {"sequential" : false}, {"random" : false} ],
     "nb_tick" : 0,
     "print_grid" : true,
@@ -22,10 +22,10 @@
   },
 
   "specific_parameter" : {
-    "nb_particles" : 50,
-    "canvas_background_color" : "darkblue",
+    "nb_particles" : 500,
+    "canvas_background_color" : "white",
     "grid_color" : "black",
-    "random_mix_color" : [true, "255,255,255"],
+    "random_mix_color" : [true, "34,34,233"],
     "view" : [ {"tkinter" : true}, {"pygame" : false} ]
   }
 

@@ -64,8 +64,8 @@ class SMA(Observable):
         mix = self.prop.random_mix_color()
         if mix :
             d = int((d + mix[0]) / 2)
-            r = int((r + mix[0]) / 2)
-            w = int((w + mix[0]) / 2)
+            r = int((r + mix[1]) / 2)
+            w = int((w + mix[2]) / 2)
 
         de = ("%02x" % d)
         re = ("%02x" % r)
