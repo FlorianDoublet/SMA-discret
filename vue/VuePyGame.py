@@ -37,20 +37,21 @@ class Vue(Observer):
         if not self.prop.print_grid():
             pass
 
+        box_size = int(self.box_size * self.universe_screen.magnification)
+
         grid_color = self.prop.grid_color()
 
-        h = self.h * self.box_size
-        w = self.w * self.box_size
+        h = self.h * box_size
+        w = self.w * box_size
 
         offset_x = int(self.universe_screen.mx + self.universe_screen.dx * self.universe_screen.magnification)
         offset_y = int(self.universe_screen.my + self.universe_screen.dy * self.universe_screen.magnification)
-        box_size = int(self.box_size * self.universe_screen.magnification)
 
         if self.box_size > 1:
-            for i in range(0, h-offset_y, box_size):
+            for i in range(0, h, box_size):
                 pygame.draw.line(self.window, Color(grid_color), (offset_x, i+offset_y), (w+offset_x, i+offset_y))
 
-            for j in range(0, w-offset_x, box_size):
+            for j in range(0, w, box_size):
                 pygame.draw.line(self.window, Color(grid_color), (j+offset_x, offset_y), (j+offset_x, h+offset_y))
 
     def update(self, *args, **kwargs):
