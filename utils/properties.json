@@ -1,8 +1,8 @@
 {
   "general_parameter" : {
     "grid_size" : {
-    "grid_size_x" : 100,
-    "grid_size_y" : 100
+    "grid_size_x" : 70,
+    "grid_size_y" : 60
     },
 
     "canvas_size" : {
@@ -22,10 +22,10 @@
   },
 
   "specific_parameter" : {
-    "nb_particles" : 500,
+    "nb_particles" : 20,
     "canvas_background_color" : "white",
     "grid_color" : "black",
-    "random_mix_color" : [true, "34,34,233"],
+    "random_mix_color" : [true, "233,34,34"],
     "view" : [ {"tkinter" : true}, {"pygame" : false} ]
   }
 
