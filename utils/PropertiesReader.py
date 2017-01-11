@@ -80,7 +80,7 @@ class PropertiesReader:
 					view_import = ""
 					if key == "tkinter":
 						view_import = "vue.VueTkinter"
-					elif key == "PyGame":
+					elif key == "pygame":
 						view_import = "vue.VuePyGame"
 					return view_import
 
