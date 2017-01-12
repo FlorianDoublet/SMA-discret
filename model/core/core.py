@@ -67,8 +67,9 @@ class Core(Observable):
         color = ge + de + re + we
         return color
 
+    @abc.abstractmethod
     def print_tick(self):
-        print("Tick;"+str(self.tick))
+        pass
 
     def apply_sheduling(self):
         if self.sheduling == "equitable":

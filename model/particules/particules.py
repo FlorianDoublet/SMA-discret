@@ -29,3 +29,6 @@ class Particles(Core):
         # On cree les agents
         self.agent_list = [Particle(self.random_color(), p[1], p[0], self.environnement) for p in positions]
 
+    def print_tick(self):
+        print("Tick;"+str(self.tick))
+
