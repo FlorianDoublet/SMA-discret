@@ -26,7 +26,6 @@ class Particle(Agent):
         # la prochain position selon la direction
         x, y = self.next_position()
 
-
         collision = self.environnement.is_their_a_collision(x, y)
 
         if collision:
@@ -56,7 +55,28 @@ class Particle(Agent):
             self.y = y
             self.update()
 
+    def next_position(self):
+        """
+        donne la prochaine position selon la direction de la particule
+        :return: x, y qui correspondent a la position
+        """
+        x, y = self.direction.iterate(self.x, self.y)
+
+        x, y = self.calculate_torrique_position(x, y)
+
+        return x, y
+
+    def wall_collision(self, wall_inv):
+        # on inverse l'axe x et ou y selon les valeurs du tuple --> [0] = x_axis, [1] = y_axis
+        if wall_inv[0]:
+            self.direction.inverse_x_axis()
+        if wall_inv[1]:
+            self.direction.inverse_y_axis()
+        if PropertiesReader.prop.trace():
+            self.print_direct_change("wall-col")
+
     def print_direct_change(self, cause):
         print("Particle;before;" + self.old_dir.to_string() + ";after;" + self.direction.to_string() + ";at;x;"+str(self.x) + ";y;"+str(self.y)+";cause;"+cause)
+
 
 

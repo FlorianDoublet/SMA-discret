@@ -20,11 +20,8 @@ class Direction:
 
     @staticmethod
     def random_dir():
-        values = [0, 1, -1]
-        possible_combination = []
-        for val in combinations_with_replacement(values, 2):
-            if val != (0, 0):
-                possible_combination.append(val)
+        possible_combination = [i for i in product(range(-1, 2), repeat=2)]
+        possible_combination.remove((0, 0))
 
         tirage = possible_combination[randrange(len(possible_combination))]
         return tirage[0], tirage[1]

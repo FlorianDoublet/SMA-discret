@@ -30,8 +30,6 @@ class Core(Observable):
     def init_agents(self):
         pass
 
-
-
     def run(self):
         """
         effectue le tour de parole

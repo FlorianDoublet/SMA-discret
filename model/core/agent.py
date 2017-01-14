@@ -11,7 +11,6 @@ class Agent:
     __metaclass__ = abc.ABCMeta
 
     def __init__(self, color, x, y, environnement):
-
         self.color = color
         self.x = x
         self.y = y
@@ -39,38 +38,27 @@ class Agent:
         """
         pass
 
+    @abc.abstractmethod
     def wall_collision(self, wall_inv):
-        # on inverse l'axe x et ou y selon les valeurs du tuple --> [0] = x_axis, [1] = y_axis
-        if wall_inv[0]:
-            self.direction.inverse_x_axis()
-        if wall_inv[1]:
-            self.direction.inverse_y_axis()
-        if PropertiesReader.prop.trace():
-            self.print_direct_change("wall-col")
+        pass
 
-
-
+    @abc.abstractmethod
     def next_position(self):
-        """
-        donne la prochaine position selon la direction de la particule
-        :return: x, y qui correspondent a la position
-        """
-        x, y = self.direction.iterate(self.x, self.y)
+        pass
 
+    def calculate_torrique_position(self, x, y):
         if self.environnement.is_torrique:
-            y_max = self.environnement.h-1
-            x_max = self.environnement.w-1
+            y_max = self.environnement.h - 1
+            x_max = self.environnement.w - 1
             # si on peux passer a travers les murs alors on calcul la position en fonction de ce parametre
             if y < 0:
                 y = y_max
             elif y > y_max:
                 y = 0
-
             if x < 0:
                 x = x_max
             elif x > x_max:
                 x = 0
-
         return x, y
 
     def save_previous_pos(self):
@@ -79,6 +67,10 @@ class Agent:
 
     def reset_old_position_in_env(self):
         self.environnement.delete_agent(self)
+
+    def die(self):
+        self.environnement.delete_agent(self)
+        self.environnement.SMA.agent_list.remove(self)
 
     @abc.abstractmethod
     def print_direct_change(self, cause):

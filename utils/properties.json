@@ -1,13 +1,13 @@
 {
   "general_parameter" : {
     "grid_size" : {
-    "grid_size_x" : 100,
-    "grid_size_y" : 100
+    "grid_size_x" : 20,
+    "grid_size_y" : 20
     },
 
     "canvas_size" : {
-      "canvas_size_x" : 400,
-      "canvas_size_y" : 400
+      "canvas_size_x" : 1000,
+      "canvas_size_y" : 600
     },
 
     "box_size" : 15,

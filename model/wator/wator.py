@@ -2,8 +2,9 @@
 # -*- coding: utf-8 -*-
 import random
 from itertools import product
-from model.Agent import Agent
 from model.core.core import Core
+from model.wator.Fish import Fish
+from model.wator.Shark import Shark
 
 
 class Wator(Core):
@@ -12,7 +13,10 @@ class Wator(Core):
         super().__init__()
 
     def init_agents(self):
-        number = self.prop.nb_particles()
+        nb_fish = 50
+        nb_shark = 10
+        fish_breed_time = 5
+        shark_breed_time = 15
 
         # Generer toutes les permutations possibles
         every_possible_tuple_position = [i for i in product(range(max(self.w, self.h)), repeat=2)]
@@ -24,7 +28,14 @@ class Wator(Core):
         every_possible_tuple_position = [i for i in every_possible_tuple_position if i[index] < min(self.w, self.h)]
 
         # Recuperer x valeurs de toutes les permutations possible sans doublons
-        positions = random.sample(every_possible_tuple_position, number)
+        positions = random.sample(every_possible_tuple_position, nb_fish+nb_shark)
 
-        # On cree les agents
-        #self.agent_list = [Agent(self.random_color(), p[1], p[0], self.environnement) for p in positions]
+        fish_positions = positions[nb_shark:]
+        shark_positions = positions[:nb_shark]
+
+        self.agent_list = []
+        self.agent_list = [Fish(fish_breed_time, "green", p[1], p[0], self.environnement) for p in fish_positions]
+        self.agent_list += [Shark(shark_breed_time, "pink", p[1], p[0], self.environnement) for p in shark_positions]
+
+    def print_tick(self):
+        print("Tick;" + str(self.tick))
