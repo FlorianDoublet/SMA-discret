@@ -11,10 +11,13 @@ class Fish(ReproductibleCreature):
         self.environnement.set_agent(self)
 
     def reproduce(self, x, y):
-        if self.age > self.breed_time:
+        if self.maturity > self.breed_time:
             baby = Fish(self.breed_time, "green", x, y, self.environnement)
             self.environnement.SMA.agent_list.append(baby)
             self.environnement.set_agent(baby)
+            self.maturity = 0
+        else:
+            self.maturity += 1
         pass
 
     def decide(self):

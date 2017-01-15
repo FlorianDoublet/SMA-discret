@@ -12,6 +12,7 @@ class ReproductibleCreature(Agent):
         super().__init__(color, x, y, env)
         self.breed_time = breed_time
         self.age = 0
+        self.maturity = 0
 
     def die(self):
         self.environnement.get_grille()[self.y][self.x] = None
