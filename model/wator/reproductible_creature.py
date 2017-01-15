@@ -16,7 +16,8 @@ class ReproductibleCreature(Agent):
 
     def die(self):
         self.environnement.get_grille()[self.y][self.x] = None
-        self.environnement.SMA.agent_list.remove(self)
+        if self in self.environnement.SMA.agent_list:
+            self.environnement.SMA.agent_list.remove(self)
 
     @abc.abstractmethod
     def reproduce(self, x, y):

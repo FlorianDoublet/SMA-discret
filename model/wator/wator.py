@@ -13,10 +13,10 @@ class Wator(Core):
         super().__init__()
 
     def init_agents(self):
-        nb_fish = 50
-        nb_shark = 10
-        fish_breed_time = 5
-        shark_breed_time = 15
+        nb_fish = 200
+        nb_shark = 5
+        fish_breed_time = 2
+        shark_breed_time = 10
 
         # Generer toutes les permutations possibles
         every_possible_tuple_position = [i for i in product(range(max(self.w, self.h)), repeat=2)]
