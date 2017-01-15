@@ -68,10 +68,6 @@ class Agent:
     def reset_old_position_in_env(self):
         self.environnement.delete_agent(self)
 
-    def die(self):
-        self.environnement.delete_agent(self)
-        self.environnement.SMA.agent_list.remove(self)
-
     @abc.abstractmethod
     def print_direct_change(self, cause):
         pass

@@ -13,6 +13,10 @@ class ReproductibleCreature(Agent):
         self.breed_time = breed_time
         self.age = 0
 
+    def die(self):
+        self.environnement.get_grille()[self.y][self.x] = None
+        self.environnement.SMA.agent_list.remove(self)
+
     @abc.abstractmethod
     def reproduce(self, x, y):
         pass

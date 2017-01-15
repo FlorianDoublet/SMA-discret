@@ -17,32 +17,19 @@ class Shark(ReproductibleCreature):
 
     def reproduce(self, x, y):
         if self.age > self.breed_time:
-            self.environnement.SMA.agent_list.append(Shark(self.breed_time, "pink", x, y, self.environnement))
+            baby = Shark(self.breed_time, "pink", x, y, self.environnement)
+            self.environnement.SMA.agent_list.append(baby)
+            self.environnement.set_agent(baby)
         pass
 
-    def eat(self, fish):
-        """
-        Mange un poisson donne (supprime le poisson des agents en fait)
-        :param fish:
-        :return:
-        """
-        self.environnement.delete_agent(fish)
-        self.environnement.SMA.agent_list.remove(fish)
-
     def decide(self):
-        self.age += 1 # Prend de l'age
-        if self.last_time_he_ate >= self.shark_starve_time:
-            self.die() # Meurs de faim
-        else:
-            self.last_time_he_ate += 1
-
         x, y = self.next_position()
 
         collision = self.environnement.is_their_a_collision(x, y)
 
         if collision:
-            if isinstance(collision, Fish):
-                self.eat(collision)
+            if isinstance(collision, Fish): # Miam miam
+                collision.die() # Onomnomnomnom
                 self.last_time_he_ate = 0 # N'a plus faim :)
                 self.save_previous_pos()
                 self.x = x
@@ -53,6 +40,12 @@ class Shark(ReproductibleCreature):
             self.x = x
             self.y = y
             self.update()
+
+            self.age += 1  # Prend de l'age
+            if self.last_time_he_ate >= self.shark_starve_time:
+                self.die()  # Meurs de faim
+            else:
+                self.last_time_he_ate += 1
 
     def detect_fishes(self):
         """

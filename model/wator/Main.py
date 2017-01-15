@@ -30,5 +30,6 @@ class Main:
 
     def millis_to_sec(self, millis):
         return (millis/1000) % 60
+
 if __name__ == '__main__':
     Main()

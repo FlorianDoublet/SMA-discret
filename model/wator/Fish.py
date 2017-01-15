@@ -12,7 +12,9 @@ class Fish(ReproductibleCreature):
 
     def reproduce(self, x, y):
         if self.age > self.breed_time:
-            self.environnement.SMA.agent_list.append(Fish(self.breed_time, "green", x, y, self.environnement))
+            baby = Fish(self.breed_time, "green", x, y, self.environnement)
+            self.environnement.SMA.agent_list.append(baby)
+            self.environnement.set_agent(baby)
         pass
 
     def decide(self):
