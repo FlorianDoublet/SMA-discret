@@ -23,9 +23,9 @@
 
   "specific_parameter" : {
     "nb_particles" : 500,
-    "canvas_background_color" : "darkblue",
-    "grid_color" : "black",
-    "random_mix_color" : [true, "34,34,233"],
+    "canvas_background_color" : "lightblue",
+    "grid_color" : "lightblue",
+    "random_mix_color" : [false, "34,34,233"],
     "view" : [ {"tkinter" : true}, {"pygame" : false} ]
   }
 

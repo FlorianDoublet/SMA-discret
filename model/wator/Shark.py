@@ -17,7 +17,7 @@ class Shark(ReproductibleCreature):
 
     def reproduce(self, x, y):
         if self.maturity > self.breed_time:
-            baby = Shark(self.breed_time, "pink", x, y, self.environnement)
+            baby = Shark(self.breed_time, "hotpink", x, y, self.environnement)
             self.environnement.SMA.agent_list.append(baby)
             self.environnement.set_agent(baby)
             self.maturity = 0
@@ -49,6 +49,8 @@ class Shark(ReproductibleCreature):
                 self.die()  # Meurs de faim
             else:
                 self.last_time_he_ate += 1
+        if self.maturity > self.breed_time:
+            self.color = "red"
 
     def detect_fishes(self):
         """

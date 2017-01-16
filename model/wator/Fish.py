@@ -33,6 +33,8 @@ class Fish(ReproductibleCreature):
             self.x = x
             self.y = y
             self.update()
+        if self.maturity > self.breed_time:
+            self.color = "blue"
 
     def next_position(self):
         """
