@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import json
+from pathlib import Path
 
 class PropertiesReader:
 
@@ -8,9 +9,12 @@ class PropertiesReader:
 
 	def __init__(self):
 
+		my_file = Path("utils/properties.json")
+		if not my_file.is_file():
+			my_file = Path("../../utils/properties.json")
 
 
-		with open('../../utils/properties.json') as json_data:
+		with open(my_file) as json_data:
 			self.properties = json.load(json_data)
 		self.general_param = self.properties["general_parameter"]
 		self.specific_param = self.properties["specific_parameter"]

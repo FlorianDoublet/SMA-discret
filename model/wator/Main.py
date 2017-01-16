@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import sys
+import os
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
 from model.wator.wator import Wator
 from time import sleep
 from utils.PropertiesReader import PropertiesReader
