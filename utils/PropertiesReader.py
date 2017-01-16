@@ -1,92 +1,92 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+
 import json
 from pathlib import Path
 
+
 class PropertiesReader:
+    prop = None
 
-	prop = None
+    def __init__(self):
 
-	def __init__(self):
+        my_file = Path("utils/properties.json")
+        if not my_file.is_file():
+            my_file = Path("../../utils/properties.json")
 
-		my_file = Path("utils/properties.json")
-		if not my_file.is_file():
-			my_file = Path("../../utils/properties.json")
+        with my_file.open() as json_data:
+            self.properties = json.load(json_data)
+        self.general_param = self.properties["general_parameter"]
+        self.specific_param = self.properties["specific_parameter"]
+        PropertiesReader.prop = self
 
+    def print_json(self):
+        print(self.properties)
 
-		with open(my_file) as json_data:
-			self.properties = json.load(json_data)
-		self.general_param = self.properties["general_parameter"]
-		self.specific_param = self.properties["specific_parameter"]
-		PropertiesReader.prop = self
+    def grid_size(self):
+        grid_size = self.general_param["grid_size"]
+        return grid_size["grid_size_x"], grid_size["grid_size_y"]
 
-	def print_json(self):
-		print(self.properties)
+    def canvas_size(self):
+        canvas_size = self.general_param["canvas_size"]
+        return canvas_size["canvas_size_x"], canvas_size["canvas_size_y"]
 
-	def grid_size(self):
-		grid_size = self.general_param["grid_size"]
-		return grid_size["grid_size_x"], grid_size["grid_size_y"]
+    def box_size(self):
+        return self.general_param["box_size"]
 
-	def canvas_size(self):
-		canvas_size = self.general_param["canvas_size"]
-		return canvas_size["canvas_size_x"], canvas_size["canvas_size_y"]
+    def delay_ms(self):
+        return self.general_param["delay_ms"]
 
-	def box_size(self):
-		return self.general_param["box_size"]
+    def sheduling(self):
+        shedules = self.general_param["sheduling"]
+        for shedule in shedules:
+            for key, val in shedule.items():
+                if val:
+                    return key
 
-	def delay_ms(self):
-		return self.general_param["delay_ms"]
+    def nb_tick(self):
+        return self.general_param["nb_tick"]
 
-	def sheduling(self):
-		shedules = self.general_param["sheduling"]
-		for shedule in shedules:
-			for key, val in shedule.items():
-				if val:
-					return key
+    def print_grid(self):
+        return self.general_param["print_grid"]
 
-	def nb_tick(self):
-		return self.general_param["nb_tick"]
+    def trace(self):
+        return self.general_param["trace"]
 
-	def print_grid(self):
-		return self.general_param["print_grid"]
+    def random_seed(self):
+        return self.general_param["random_seed"]
 
-	def trace(self):
-		return self.general_param["trace"]
+    def refresh(self):
+        return self.general_param["refresh"]
 
-	def random_seed(self):
-		return self.general_param["random_seed"]
+    def toric(self):
+        return self.general_param["toric"]
 
-	def refresh(self):
-		return self.general_param["refresh"]
+    def nb_particles(self):
+        return self.specific_param["nb_particles"]
 
-	def toric(self):
-		return self.general_param["toric"]
+    def canvas_background_color(self):
+        return self.specific_param["canvas_background_color"]
 
-	def nb_particles(self):
-		return self.specific_param["nb_particles"]
+    def grid_color(self):
+        return self.specific_param["grid_color"]
 
-	def canvas_background_color(self):
-		return self.specific_param["canvas_background_color"]
+    def random_mix_color(self):
+        if self.specific_param["random_mix_color"][0]:
+            string_color = self.specific_param["random_mix_color"][1]
+            string_color = string_color.split(",")
+            return (int(string_color[0]), int(string_color[1]), int(string_color[2]))
+        else:
+            return False
 
-	def grid_color(self):
-		return self.specific_param["grid_color"]
-
-	def random_mix_color(self):
-		if self.specific_param["random_mix_color"][0]:
-			string_color = self.specific_param["random_mix_color"][1]
-			string_color = string_color.split(",")
-			return (int(string_color[0]), int(string_color[1]), int(string_color[2]))
-		else:
-			return False
-	def view(self):
-		views = self.specific_param["view"]
-		for view in views:
-			for key, val in view.items():
-				if val:
-					view_import = ""
-					if key == "tkinter":
-						view_import = "vue.VueTkinter"
-					elif key == "pygame":
-						view_import = "vue.VuePyGame"
-					return view_import
-
+    def view(self):
+        views = self.specific_param["view"]
+        for view in views:
+            for key, val in view.items():
+                if val:
+                    view_import = ""
+                    if key == "tkinter":
+                        view_import = "vue.VueTkinter"
+                    elif key == "pygame":
+                        view_import = "vue.VuePyGame"
+                    return view_import
