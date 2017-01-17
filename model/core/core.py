@@ -23,7 +23,9 @@ class Core(Observable):
 
         # On cree l'environnement
         self.environnement = Environnement(self.w, self.h, self)
+        self.is_trace = self.prop.trace()
         self.init_agents()
+
 
 
     @abc.abstractmethod

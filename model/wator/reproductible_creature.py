@@ -8,8 +8,8 @@ class ReproductibleCreature(Agent):
     class for all the reproductible creature agent
     """
 
-    def __init__(self, breed_time, color, x, y, env):
-        super().__init__(color, x, y, env)
+    def __init__(self, breed_time, color, x, y, env, is_trace):
+        super().__init__(color, x, y, env, is_trace)
         self.breed_time = breed_time
         self.age = 0
         self.maturity = 0
@@ -32,5 +32,5 @@ class ReproductibleCreature(Agent):
         pass
 
     @abc.abstractmethod
-    def print_direct_change(self, cause):
+    def print_cvs_change(self, cause):
         pass

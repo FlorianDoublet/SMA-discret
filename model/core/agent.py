@@ -10,7 +10,7 @@ from utils.PropertiesReader import PropertiesReader
 class Agent:
     __metaclass__ = abc.ABCMeta
 
-    def __init__(self, color, x, y, environnement):
+    def __init__(self, color, x, y, environnement, is_trace):
         self.color = color
         self.x = x
         self.y = y
@@ -21,6 +21,7 @@ class Agent:
         self.previous_y = None
         self.direction = Direction()  # without parameter it's a random direction
         self.old_dir = self.direction
+        self.is_trace = is_trace
 
     @abc.abstractmethod
     def update(self):
@@ -69,7 +70,7 @@ class Agent:
         self.environnement.delete_agent(self)
 
     @abc.abstractmethod
-    def print_direct_change(self, cause):
+    def print_cvs_change(self, cause):
         pass
 
 

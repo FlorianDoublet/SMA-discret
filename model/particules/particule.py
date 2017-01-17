@@ -40,8 +40,8 @@ class Particle(Agent):
                 agent_col.direction = self.direction
                 self.direction = tmp_dir
                 if PropertiesReader.prop.trace():
-                    self.print_direct_change("agent-col")
-                    agent_col.print_direct_change("agent-col")
+                    self.print_cvs_change("agent-col")
+                    agent_col.print_cvs_change("agent-col")
                 return
 
             elif type(collision) is tuple:
@@ -75,7 +75,7 @@ class Particle(Agent):
         if PropertiesReader.prop.trace():
             self.print_direct_change("wall-col")
 
-    def print_direct_change(self, cause):
+    def print_cvs_change(self, cause):
         print("Particle;before;" + self.old_dir.to_string() + ";after;" + self.direction.to_string() + ";at;x;"+str(self.x) + ";y;"+str(self.y)+";cause;"+cause)
 
 
