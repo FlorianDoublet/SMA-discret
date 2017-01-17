@@ -6,6 +6,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
 from model.wator.wator import Wator
 from time import sleep
 from utils.PropertiesReader import PropertiesReader
+from vue.VuePopulation import VuePopulation
 
 
 class Main:
@@ -20,7 +21,11 @@ class Main:
         sma = Wator()
         s = __import__(prop.view(), globals(), locals(), ['*'])
         vue = s.Vue()
+
+        graph = VuePopulation()
+
         sma.register(vue)
+        sma.register(graph)
 
         i = 0
         while i <= tick:
