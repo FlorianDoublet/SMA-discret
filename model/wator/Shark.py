@@ -5,9 +5,9 @@ from random import randrange
 
 
 class Shark(ReproductibleCreature):
-    def __init__(self, breed_time, color, x, y, env):
+    def __init__(self, breed_time, starve_time, color, x, y, env):
         super().__init__(breed_time, color, x, y, env)
-        self.shark_starve_time = 8
+        self.shark_starve_time = starve_time
         self.last_time_he_ate = 0 # Compteur pour famine
 
     def update(self):
@@ -17,7 +17,7 @@ class Shark(ReproductibleCreature):
 
     def reproduce(self, x, y):
         if self.maturity > self.breed_time:
-            baby = Shark(self.breed_time, "hotpink", x, y, self.environnement)
+            baby = Shark(self.breed_time, self.shark_starve_time, "hotpink", x, y, self.environnement)
             self.environnement.SMA.agent_list.append(baby)
             self.environnement.set_agent(baby)
             self.maturity = 0

@@ -13,10 +13,12 @@ class Wator(Core):
         super().__init__()
 
     def init_agents(self):
-        nb_fish = 200
-        nb_shark = 5
-        fish_breed_time = 2
-        shark_breed_time = 10
+
+        nb_fish = self.prop.nb_fish()
+        nb_shark = self.prop.nb_shark()
+        fish_breed_time = self.prop.breed_time_fish()
+        shark_breed_time = self.prop.breed_time_shark()
+        shark_starve_time = self.prop.starve_time_shark()
 
         # Generer toutes les permutations possibles
         every_possible_tuple_position = [i for i in product(range(max(self.w, self.h)), repeat=2)]
@@ -35,7 +37,7 @@ class Wator(Core):
 
         self.agent_list = []
         self.agent_list = [Fish(fish_breed_time, "green", p[1], p[0], self.environnement) for p in fish_positions]
-        self.agent_list += [Shark(shark_breed_time, "pink", p[1], p[0], self.environnement) for p in shark_positions]
+        self.agent_list += [Shark(shark_breed_time,shark_starve_time, "pink", p[1], p[0], self.environnement) for p in shark_positions]
 
     def print_tick(self):
         print("Tick;" + str(self.tick))

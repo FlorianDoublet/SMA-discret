@@ -18,6 +18,7 @@ class PropertiesReader:
             self.properties = json.load(json_data)
         self.general_param = self.properties["general_parameter"]
         self.specific_param = self.properties["specific_parameter"]
+        self.wator = self.properties["wator"]
         PropertiesReader.prop = self
 
     def print_json(self):
@@ -90,3 +91,24 @@ class PropertiesReader:
                     elif key == "pygame":
                         view_import = "vue.VuePyGame"
                     return view_import
+
+    def fish(self):
+	    return self.wator["fish"]
+
+    def shark(self):
+	    return self.wator["shark"]
+
+    def nb_fish(self):
+	    return self.fish()["nb"]
+
+    def nb_shark(self):
+	    return self.shark()["nb"]
+
+    def breed_time_fish(self):
+	    return self.fish()["breed_time"]
+
+    def breed_time_shark(self):
+	    return self.shark()["breed_time"]
+
+    def starve_time_shark(self):
+	    return self.shark()["starve_time"]

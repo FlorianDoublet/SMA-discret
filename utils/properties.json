@@ -27,6 +27,17 @@
     "grid_color" : "lightblue",
     "random_mix_color" : [false, "34,34,233"],
     "view" : [ {"tkinter" : true}, {"pygame" : false} ]
+  },
+  "wator" : {
+    "fish" : {
+      "nb" : 200,
+      "breed_time" : 2
+    },
+    "shark" : {
+      "nb" : 5,
+      "breed_time" : 10,
+      "starve_time" : 8
+    }
   }
 
 }
