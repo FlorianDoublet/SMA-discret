@@ -47,6 +47,11 @@ class Agent:
     def next_position(self):
         pass
 
+    def die(self):
+        self.environnement.get_grille()[self.y][self.x] = None
+        if self in self.environnement.SMA.agent_list:
+            self.environnement.SMA.agent_list.remove(self)
+
     def calculate_torrique_position(self, x, y):
         if self.environnement.is_torrique:
             y_max = self.environnement.h - 1

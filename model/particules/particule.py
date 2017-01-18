@@ -11,7 +11,7 @@ class Particle(Agent):
 
     def update(self):
         """
-        met a jour la position de l'agent sur la carte
+        met a jour la position de l'agents sur la carte
         :return:
         """
         self.reset_old_position_in_env()
@@ -40,8 +40,8 @@ class Particle(Agent):
                 agent_col.direction = self.direction
                 self.direction = tmp_dir
                 if PropertiesReader.prop.trace():
-                    self.print_cvs_change("agent-col")
-                    agent_col.print_cvs_change("agent-col")
+                    self.print_cvs_change("agents-col")
+                    agent_col.print_cvs_change("agents-col")
                 return
 
             elif type(collision) is tuple:

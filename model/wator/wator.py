@@ -39,7 +39,7 @@ class Wator(Core):
 
         self.agent_list = []
         self.agent_list = [Fish(fish_breed_time, "green", p[1], p[0], self.environnement, self.is_trace) for p in fish_positions]
-        self.agent_list += [Shark(shark_breed_time,shark_starve_time, "pink", p[1], p[0], self.environnement, self.is_trace) for p in shark_positions]
+        self.agent_list += [Shark(shark_breed_time, shark_starve_time, "pink", p[1], p[0], self.environnement, self.is_trace) for p in shark_positions]
 
     def print_tick(self):
         self.nb_agent_tick()
