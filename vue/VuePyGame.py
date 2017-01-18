@@ -54,15 +54,16 @@ class Vue(Observer):
             for j in range(0, w, box_size):
                 pygame.draw.line(self.window, Color(grid_color), (j+offset_x, offset_y), (j+offset_x, h+offset_y))
 
-    def update(self, *args, **kwargs):
-        #self.clock.tick(60)  # 60 frame per second
-
+    def controls(self):
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 if event.key in self.key_to_function:
                     self.key_to_function[event.key](self.universe_screen)
                 elif event.key == pygame.K_SPACE:
                     paused = (True, False)[paused]
+
+    def update(self, *args, **kwargs):
+        self.controls()
 
         environnement = args[0]
         agents = environnement.SMA.agent_list
@@ -71,8 +72,8 @@ class Vue(Observer):
         self.draw_grid()
 
         for agent in agents:
-            ax=agent.x*self.box_size+int(self.box_size/2)
-            ay=agent.y*self.box_size+int(self.box_size/2)
+            ax = agent.x*self.box_size+int(self.box_size/2)
+            ay = agent.y*self.box_size+int(self.box_size/2)
             asize = int(self.box_size/2)
 
             x = int(self.universe_screen.mx + (self.universe_screen.dx + ax) * self.universe_screen.magnification)

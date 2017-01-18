@@ -15,9 +15,9 @@ class Environnement:
     def set_agent(self, agent):
         self.grille2d[agent.y][agent.x] = agent
 
-
     def delete_agent(self, agent):
-        self.grille2d[agent.previous_y][agent.previous_x] = None
+        if agent.previous_y or agent.previous_x:
+            self.grille2d[agent.previous_y][agent.previous_x] = None
 
     def get_grille(self):
         return self.grille2d
@@ -61,14 +61,3 @@ class Environnement:
             inverse_x_dir = True
 
         return (inverse_x_dir, inverse_y_dir)
-
-
-
-
-
-
-
-
-
-
-

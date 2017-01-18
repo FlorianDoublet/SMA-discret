@@ -1,16 +1,16 @@
 {
   "general_parameter" : {
     "grid_size" : {
-    "grid_size_x" : 100,
-    "grid_size_y" : 100
+    "grid_size_x" : 35,
+    "grid_size_y" : 35
     },
 
     "canvas_size" : {
-      "canvas_size_x" : 400,
-      "canvas_size_y" : 400
+      "canvas_size_x" : 1000,
+      "canvas_size_y" : 600
     },
 
-    "box_size" : 15,
+    "box_size" : 10,
     "delay_ms" : 10,
     "sheduling" : [ {"equitable" : true}, {"sequential" : false}, {"random" : false} ],
     "nb_tick" : 0,
@@ -23,10 +23,21 @@
 
   "specific_parameter" : {
     "nb_particles" : 500,
-    "canvas_background_color" : "white",
-    "grid_color" : "black",
-    "random_mix_color" : [true, "34,34,233"],
-    "view" : [ {"tkinter" : true}, {"pygame" : false} ]
+    "canvas_background_color" : "lightblue",
+    "grid_color" : "lightblue",
+    "random_mix_color" : [false, "34,34,233"],
+    "view" : [ {"tkinter" : false}, {"pygame" : true} ]
+  },
+  "wator" : {
+    "fish" : {
+      "nb" : 200,
+      "breed_time" : 2
+    },
+    "shark" : {
+      "nb" : 5,
+      "breed_time" : 10,
+      "starve_time" : 8
+    }
   }
 
 }

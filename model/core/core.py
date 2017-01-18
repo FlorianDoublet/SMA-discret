@@ -1,43 +1,35 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import abc
 import random
-from itertools import product
-from model.Agent import Agent
-from model.Environnement import Environnement
+
+from model.core.Environnement import Environnement
 from observerPattern.observable import Observable
 from utils.PropertiesReader import PropertiesReader
-import tkinter
+from model.core.agent import Agent
 
-class SMA(Observable):
+
+class Core(Observable):
+    __metaclass__ = abc.ABCMeta
 
     def __init__(self):
         super().__init__()
         self.prop = PropertiesReader.prop
         self.tick = 1
-        w, h = self.prop.grid_size()
-        number = self.prop.nb_particles()
+        self.w, self.h = self.prop.grid_size()
         self.sheduling = self.prop.sheduling()
         seed = self.prop.random_seed()
         if seed != 0:
             random.seed(seed)
 
         # On cree l'environnement
-        self.environnement = Environnement(w, h, self)
+        self.environnement = Environnement(self.w, self.h, self)
+        self.is_trace = self.prop.trace()
+        self.init_agents()
 
-        # Generer toutes les permutations possibles
-        every_possible_tuple_position = [i for i in product(range(max(w, h)), repeat=2)]
-
-        index = 0
-        if h > w:
-            index = 1
-
-        every_possible_tuple_position = [i for i in every_possible_tuple_position if i[index] < min(w, h)]
-
-        # Recuperer x valeurs de toutes les permutations possible sans doublons
-        positions = random.sample(every_possible_tuple_position, number)
-
-        # On cree les agents
-        self.agent_list = [Agent(self.random_color(), p[1], p[0], self.environnement) for p in positions]
+    @abc.abstractmethod
+    def init_agents(self):
+        pass
 
     def run(self):
         """
@@ -74,9 +66,9 @@ class SMA(Observable):
         color = ge + de + re + we
         return color
 
+    @abc.abstractmethod
     def print_tick(self):
-        print("Tick;"+str(self.tick))
-
+        pass
 
     def apply_sheduling(self):
         if self.sheduling == "equitable":
