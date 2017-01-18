@@ -6,6 +6,7 @@ import random
 from model.core.Environnement import Environnement
 from observerPattern.observable import Observable
 from utils.PropertiesReader import PropertiesReader
+from model.core.agent import Agent
 
 
 class Core(Observable):
@@ -25,8 +26,6 @@ class Core(Observable):
         self.environnement = Environnement(self.w, self.h, self)
         self.is_trace = self.prop.trace()
         self.init_agents()
-
-
 
     @abc.abstractmethod
     def init_agents(self):

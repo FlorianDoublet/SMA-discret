@@ -3,10 +3,13 @@
 from random import randrange
 from itertools import *
 
-
 class Direction:
 
     def __init__(self, x_axis=None, y_axis=None):
+        self.possible_combination = [i for i in product(range(-1, 2), repeat=2)]
+        self.possible_combination.remove((0, 0))
+        self.combination_range = len(self.possible_combination)
+
         if x_axis and y_axis:
             self.x_axis = x_axis
             self.y_axis = y_axis
@@ -18,12 +21,8 @@ class Direction:
         x += self.x_axis
         return x, y
 
-    @staticmethod
-    def random_dir():
-        possible_combination = [i for i in product(range(-1, 2), repeat=2)]
-        possible_combination.remove((0, 0))
-
-        tirage = possible_combination[randrange(len(possible_combination))]
+    def random_dir(self):
+        tirage = self.possible_combination[randrange(self.combination_range)]
         return tirage[0], tirage[1]
 
     def inverse_x_axis(self):

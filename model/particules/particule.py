@@ -7,7 +7,7 @@ from utils.PropertiesReader import PropertiesReader
 class Particle(Agent):
 
     def __init__(self, color, x, y, environnement):
-        super().__init__(color, x, y, environnement)
+        super().__init__(color, x, y, environnement, False)
 
     def update(self):
         """

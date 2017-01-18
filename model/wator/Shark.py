@@ -10,6 +10,8 @@ class Shark(ReproductibleCreature):
         self.shark_starve_time = starve_time
         self.last_time_he_ate = 0 # Compteur pour famine
         self.print_cvs_change("born")
+        self.possible_combination = [i for i in product(range(-1, 2), repeat=2)]
+        self.possible_combination.remove((0, 0))
 
     def update(self):
         self.reset_old_position_in_env()
@@ -27,6 +29,9 @@ class Shark(ReproductibleCreature):
         pass
 
     def decide(self):
+        if self.age > self.breed_time:
+            self.color = "red"
+
         x, y = self.next_position()
 
         collision = self.environnement.is_their_a_collision(x, y)
@@ -52,8 +57,6 @@ class Shark(ReproductibleCreature):
                 self.die()  # Meurs de faim
             else:
                 self.last_time_he_ate += 1
-        if self.maturity > self.breed_time:
-            self.color = "red"
 
     def detect_fishes(self):
         """
@@ -61,16 +64,15 @@ class Shark(ReproductibleCreature):
         :return:
         """
         near_fishes = []
+        append = near_fishes.append
 
-        possible_combination = [i for i in product(range(-1, 2), repeat=2)]
-        possible_combination.remove((0, 0))
-        for x, y in possible_combination:
-            x = self.x+x
-            y = self.y+y
+        for x, y in self.possible_combination:
+            x += self.x
+            y += self.y
             x, y = self.calculate_torrique_position(x, y)
             element = self.environnement.is_their_a_collision(x, y)
             if element is Fish:
-                near_fishes.append(element)
+                append(element)
 
         return near_fishes
 

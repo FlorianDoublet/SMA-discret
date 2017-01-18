@@ -22,6 +22,9 @@ class Fish(ReproductibleCreature):
         pass
 
     def decide(self):
+        if self.age > self.breed_time:
+            self.color = "blue"
+
         self.age += 1
         x, y = self.next_position()
 
@@ -34,8 +37,6 @@ class Fish(ReproductibleCreature):
             self.x = x
             self.y = y
             self.update()
-        if self.maturity > self.breed_time:
-            self.color = "blue"
 
     def next_position(self):
         """
@@ -44,8 +45,8 @@ class Fish(ReproductibleCreature):
         """
 
         x, y = self.direction.random_dir()
-        x = self.x+x
-        y = self.y+y
+        x += self.x
+        y += self.y
 
         x, y = self.calculate_torrique_position(x, y)
 

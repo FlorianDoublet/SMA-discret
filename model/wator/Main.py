@@ -22,10 +22,10 @@ class Main:
         s = __import__(prop.view(), globals(), locals(), ['*'])
         vue = s.Vue()
 
-        graph = VuePopulation()
+        #graph = VuePopulation()
 
         sma.register(vue)
-        sma.register(graph)
+        #sma.register(graph)
 
         i = 0
         while i <= tick:
@@ -33,8 +33,6 @@ class Main:
             sleep(delay)
             if tick > 0:
                 i += 1
-
-        vue.end_draw()
 
     def millis_to_sec(self, millis):
         return (millis/1000) % 60

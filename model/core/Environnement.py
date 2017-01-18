@@ -61,14 +61,3 @@ class Environnement:
             inverse_x_dir = True
 
         return (inverse_x_dir, inverse_y_dir)
-
-
-
-
-
-
-
-
-
-
-

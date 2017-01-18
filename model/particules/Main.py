@@ -6,6 +6,8 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
 from model.particules.particules import Particles
 from time import sleep
 from utils.PropertiesReader import PropertiesReader
+from vue.VuePopulation import VuePopulation
+
 
 class Main:
 
