@@ -39,8 +39,8 @@ class Avatar(Agent):
     def decide(self):
         x, y = self.next_position()
         collision = self.environnement.is_their_a_collision(x, y)
-        if collision is Agent:
-            self.decide_by_agent(collision)
+        if isinstance(collision, Agent):
+            self.decide_by_agent(collision, x, y)
         elif type(collision) is tuple:
             pass
         else:
@@ -52,20 +52,25 @@ class Avatar(Agent):
         self.direction.y_axis = 0
         self.direction.x_axis = 0
 
-    def decide_by_agent(self, agent):
-        if agent is Wall:
+    def decide_by_agent(self, agent, x, y):
+        if type(agent) is Wall:
             # don't move :)
             pass
-        elif agent is Defender:
+        elif type(agent) is Defender:
             agent.die()
             self.nb_defender_eaten += 1
             # todo
             # if nb_defender_eaten ... then winner created
+
+            self.save_previous_pos()
+            self.x = x
+            self.y = y
             self.update()
-        elif agent is Hunter:
+            self.environnement.SMA.create_new_defender()
+        elif type(agent) is Hunter:
             self.die() # FIN DU GAME
             pass
-        elif agent is Winner:
+        elif type(agent) is Winner:
             # todo --> on gagne :D
             pass
 
