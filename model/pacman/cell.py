@@ -17,7 +17,7 @@ class Cell(Agent):
 
 
 		self.list_neighbor = []
-		self.val = 999999999999999
+		self.val = 99
 		self.is_visited = False
 
 	def build_neighbor(self):

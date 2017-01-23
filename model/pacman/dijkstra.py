@@ -7,13 +7,14 @@ class Dijkstra:
 		self.unvisited = {}
 
 	def compute(self, first_cell):
-		first_cell.calculus_dijktra()
+		first_cell.is_first()
+		first_cell.calculus_dijkstra(self.unvisited)
 		for neigh in first_cell.list_neighbor:
 			self.unvisited[neigh] = True
 		while(len(self.unvisited)):
-			unvisited_cpy = self.unvisited
+			unvisited_cpy = self.unvisited.copy()
 			for node in unvisited_cpy:
-				node.calculus_dijktra(self.unvisited)
+				node.calculus_dijkstra(self.unvisited)
 				del self.unvisited[node]
-		print("ca fini ! ")
+
 

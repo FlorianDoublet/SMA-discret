@@ -11,7 +11,7 @@ class Direction:
         self.possible_combination.remove((0, 0))
         self.combination_range = len(self.possible_combination)
 
-        if x_axis and y_axis:
+        if x_axis != None and y_axis != None:
             self.x_axis = x_axis
             self.y_axis = y_axis
         else:

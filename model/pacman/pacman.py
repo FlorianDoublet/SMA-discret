@@ -17,6 +17,7 @@ class Pacman(Core):
         super().__init__()
         self.next_defender = 20
         self.environnement = PacmanEnv(self.w, self.h, self)
+        self.init_agents()
 
     def init_agents(self):
         # Generer toutes les permutations possibles
@@ -51,7 +52,7 @@ class Pacman(Core):
 
     def init_walls(self, type="random"):
         if type == "random":
-            n_walls = 100
+            n_walls = 0
             agent_pos = random.sample(self.every_possible_tuple_position, n_walls)
 
             for pos in agent_pos:
