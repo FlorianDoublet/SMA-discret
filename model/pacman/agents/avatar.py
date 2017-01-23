@@ -3,18 +3,18 @@ from model.pacman.agents.defender import Defender
 from model.pacman.agents.hunter import Hunter
 from model.pacman.agents.wall import Wall
 from model.pacman.agents.winner import Winner
+import sys
 
 from pynput import keyboard
-
 
 class Avatar(Agent):
 
     def __init__(self, color, x, y, environnement, is_trace):
         super().__init__(color, x, y, environnement, is_trace)
         self.nb_defender_eaten = 0
+        self.winner_created = False
 
-        self.listener = keyboard.Listener(
-                on_press=self.on_press)
+        self.listener = keyboard.Listener(on_press=self.on_press)
 
         self.listener.start()
 
@@ -59,8 +59,10 @@ class Avatar(Agent):
         elif type(agent) is Defender:
             agent.die()
             self.nb_defender_eaten += 1
-            # todo
-            # if nb_defender_eaten ... then winner created
+
+            if self.nb_defender_eaten >= 4 and not self.winner_created:
+                self.environnement.SMA.create_winner()
+                self.winner_created = True
 
             self.save_previous_pos()
             self.x = x
@@ -68,16 +70,18 @@ class Avatar(Agent):
             self.update()
             self.environnement.SMA.create_new_defender()
         elif type(agent) is Hunter:
-            self.die() # FIN DU GAME
+            self.die()
             pass
         elif type(agent) is Winner:
-            # todo --> on gagne :D
+            agent.die()
+            print('\033[92m' + 'YOU WON !' + '\033[0m')
+            sys.exit()
             pass
 
     def die(self):
-        # todo --> exit le game
+        print('\033[91m' + 'YOU LOST !' + '\033[0m')
+        sys.exit()
         pass
-
 
     def wall_collision(self, wall_inv):
         pass
