@@ -14,7 +14,7 @@ class Avatar(Agent):
         self.nb_defender_eaten = 0
         self.winner_created = False
         self.invincibility_time = 250
-        self.current_invincibility = 250
+        self.current_invincibility = self.invincibility_time
 
         self.listener = keyboard.Listener(on_press=self.on_press)
 
@@ -35,9 +35,9 @@ class Avatar(Agent):
         self.environnement.set_agent(self)
 
     def decide(self):
-        if self.current_invincibility < 250 and (self.current_invincibility % 2 == 0):
+        if self.current_invincibility < self.invincibility_time and (self.current_invincibility % 2 == 0):
             self.color = "cyan"
-        if self.current_invincibility < 250 and (self.current_invincibility % 2 != 0):
+        if self.current_invincibility < self.invincibility_time and (self.current_invincibility % 2 != 0):
             self.color = "yellow"
         self.current_invincibility += 1
 
