@@ -12,5 +12,6 @@ class PacmanEnv(Environnement):
         for y in range(self.h):
             for x in range(self.w):
                 self.grille_dijkstra_val[y][x].build_neighbor()
+        print("")
 
 

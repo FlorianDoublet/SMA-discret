@@ -31,6 +31,20 @@ class Cell(Agent):
 	def is_first(self):
 		self.val = 0
 
+	def calculus_dijkstra(self, unvisited_dict):
+		"""
+		:return: unvisited neighbor
+		"""
+		self.is_visited = True
+		new_val = self.val + 1
+		unvisited_neighbor = []
+		for neigh in self.list_neighbor:
+			if not neigh.is_visited:
+				unvisited_dict[neigh] = True
+				if neigh.val > new_val:
+					neigh.val = new_val
+
+
 
 
 

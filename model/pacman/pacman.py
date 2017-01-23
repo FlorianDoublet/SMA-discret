@@ -16,7 +16,7 @@ class Pacman(Core):
     def __init__(self):
         super().__init__()
         self.next_defender = 20
-        #self.environnement = PacmanEnv(self.w, self.h, self)
+        self.environnement = PacmanEnv(self.w, self.h, self)
 
     def init_agents(self):
         # Generer toutes les permutations possibles
