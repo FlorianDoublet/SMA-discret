@@ -32,6 +32,7 @@ class Pacman(Core):
 
         self.agent_list = []
         self.init_walls()
+        self.init_hunters(2)
         self.init_avatar()
 
     def print_tick(self):
@@ -59,6 +60,13 @@ class Pacman(Core):
 
         elif type == "labyrinth":
             self.generate_maze()
+
+    def init_hunters(self, n_hunters):
+
+        for n in range(n_hunters):
+            agent_pos = self.get_available_position()
+
+            self.agent_list.append(Hunter("red", agent_pos[0], agent_pos[1], self.environnement, self.is_trace))
 
     def create_winner(self):
         agent_pos = self.get_available_position()

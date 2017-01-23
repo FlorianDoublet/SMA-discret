@@ -1,11 +1,11 @@
+import sys
 from model.core.agent import Agent
 from model.pacman.agents.defender import Defender
 from model.pacman.agents.hunter import Hunter
 from model.pacman.agents.wall import Wall
 from model.pacman.agents.winner import Winner
-import sys
-
 from pynput import keyboard
+
 
 class Avatar(Agent):
 
@@ -23,15 +23,11 @@ class Avatar(Agent):
     def on_press(self, key):
         if key == keyboard.Key.up:
             self.direction.y_axis = -1
-            self.direction.x_axis = 0
         if key == keyboard.Key.down:
             self.direction.y_axis = 1
-            self.direction.x_axis = 0
         if key == keyboard.Key.left:
-            self.direction.y_axis = 0
             self.direction.x_axis = -1
         if key == keyboard.Key.right:
-            self.direction.y_axis = 0
             self.direction.x_axis = 1
 
     def update(self):
