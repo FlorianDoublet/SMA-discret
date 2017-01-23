@@ -3,6 +3,7 @@
 from random import randrange
 from itertools import *
 
+
 class Direction:
 
     def __init__(self, x_axis=None, y_axis=None):
