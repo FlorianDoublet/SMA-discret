@@ -5,6 +5,7 @@ from model.pacman.agents.hunter import Hunter
 from model.pacman.agents.wall import Wall
 from model.pacman.agents.winner import Winner
 from model.pacman.agents.avatar import Avatar
+from model.pacman.pacman_env import PacmanEnv
 
 import random
 
@@ -12,6 +13,7 @@ class Pacman(Core):
 
     def __init__(self):
         super().__init__()
+        self.environnement = PacmanEnv(self.w, self.h, self)
 
 
     def init_agents(self):

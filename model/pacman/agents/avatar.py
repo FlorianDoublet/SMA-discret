@@ -45,13 +45,15 @@ class Avatar(Agent):
         # todo --> exit le game
         pass
 
-
     def wall_collision(self, wall_inv):
         pass
 
     def next_position(self):
         return 17, 17
 
-
     def print_cvs_change(self, cause):
         pass
+
+    def build_dijkstra_path(self):
+        dij_grid = self.environnement.grille_dijkstra_val
+        
