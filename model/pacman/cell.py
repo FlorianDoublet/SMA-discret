@@ -5,7 +5,16 @@ from model.pacman.agents.wall import Wall
 class Cell(Agent):
 
 	def __init__(self, x, y, environnement):
-		super().__init__("", x, y, environnement, False)
+		self.color = ""
+		self.x = x
+		self.y = y
+		self.environnement = environnement
+
+		self.previous_x = None
+		self.previous_y = None
+		self.direction = Direction()  # without parameter it's a random direction
+		self.old_dir = self.direction
+		self.is_trace = False
 		self.list_neighbor = []
 
 	def build_neighbor(self):
