@@ -13,6 +13,8 @@ class Avatar(Agent):
         super().__init__(color, x, y, environnement, is_trace)
         self.nb_defender_eaten = 0
         self.winner_created = False
+        self.invincibility_time = 250
+        self.current_invincibility = 250
 
         self.listener = keyboard.Listener(on_press=self.on_press)
 
@@ -37,8 +39,15 @@ class Avatar(Agent):
         self.environnement.set_agent(self)
 
     def decide(self):
+        if self.current_invincibility < 250 and (self.current_invincibility % 2 == 0):
+            self.color = "cyan"
+        if self.current_invincibility < 250 and (self.current_invincibility % 2 != 0):
+            self.color = "yellow"
+        self.current_invincibility += 1
+
         x, y = self.next_position()
         collision = self.environnement.is_their_a_collision(x, y)
+
         if isinstance(collision, Agent):
             self.decide_by_agent(collision, x, y)
         elif type(collision) is tuple:
@@ -69,8 +78,12 @@ class Avatar(Agent):
             self.y = y
             self.update()
             self.environnement.SMA.create_new_defender()
+
+            self.current_invincibility = 0
+            self.color = "pink"
         elif type(agent) is Hunter:
-            self.die()
+            if self.current_invincibility > self.invincibility_time:
+                self.die()
             pass
         elif type(agent) is Winner:
             agent.die()
