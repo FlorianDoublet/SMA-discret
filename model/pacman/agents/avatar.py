@@ -6,6 +6,7 @@ from model.pacman.agents.wall import Wall
 from model.pacman.agents.winner import Winner
 from pynput import keyboard
 from model.pacman.dijkstra import Dijkstra
+from model.core.Direction import Direction
 
 
 class Avatar(Agent):
@@ -17,8 +18,11 @@ class Avatar(Agent):
         self.invincibility_time = 250
         self.current_invincibility = self.invincibility_time
         self.dijkstra = Dijkstra()
-        self.dijkstra.compute(self.environnement.grille_dijkstra_val[self.y][self.x])
+
         self.listener = keyboard.Listener(on_press=self.on_press)
+        self.direction = Direction(0,0)
+        self.dijkstra.compute(self.environnement.grille_dijkstra_val[self.y][self.x])
+        #self.environnement.print_grille_dijkstra()
 
         self.listener.start()
 
@@ -33,8 +37,9 @@ class Avatar(Agent):
             self.direction.x_axis = 1
 
     def update(self):
+        self.dijkstra.reset(self.environnement.grille_dijkstra_val[self.y][self.x])
         self.dijkstra.compute(self.environnement.grille_dijkstra_val[self.y][self.x])
-        self.environnement.print_grille_dijkstra()
+        #self.environnement.print_grille_dijkstra()
         self.reset_old_position_in_env()
         self.environnement.set_agent(self)
 

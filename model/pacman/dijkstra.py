@@ -9,12 +9,18 @@ class Dijkstra:
 	def compute(self, first_cell):
 		first_cell.is_first()
 		first_cell.calculus_dijkstra(self.unvisited)
-		for neigh in first_cell.list_neighbor:
-			self.unvisited[neigh] = True
 		while(len(self.unvisited)):
 			unvisited_cpy = self.unvisited.copy()
 			for node in unvisited_cpy:
 				node.calculus_dijkstra(self.unvisited)
+				del self.unvisited[node]
+
+	def reset(self, first_cell):
+		first_cell.reset_neigh(self.unvisited)
+		while(len(self.unvisited)):
+			unvisited_cpy = self.unvisited.copy()
+			for node in unvisited_cpy:
+				node.reset_neigh(self.unvisited)
 				del self.unvisited[node]
 
 

@@ -17,7 +17,7 @@ class Cell(Agent):
 
 
 		self.list_neighbor = []
-		self.val = 99
+		self.val = 999999999
 		self.is_visited = False
 
 	def build_neighbor(self):
@@ -37,12 +37,18 @@ class Cell(Agent):
 		"""
 		self.is_visited = True
 		new_val = self.val + 1
-		unvisited_neighbor = []
 		for neigh in self.list_neighbor:
 			if not neigh.is_visited:
 				unvisited_dict[neigh] = True
 				if neigh.val > new_val:
 					neigh.val = new_val
+
+	def reset_neigh(self, unvisited_dict):
+		self.is_visited = False
+		self.val = 999999999
+		for neigh in self.list_neighbor:
+			if neigh.is_visited:
+				unvisited_dict[neigh] = True
 
 
 
