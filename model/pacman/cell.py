@@ -9,22 +9,27 @@ class Cell(Agent):
 		self.x = x
 		self.y = y
 		self.environnement = environnement
-
 		self.previous_x = None
 		self.previous_y = None
 		self.direction = Direction()  # without parameter it's a random direction
 		self.old_dir = self.direction
 		self.is_trace = False
+
+
 		self.list_neighbor = []
+		self.val = 999999999999999
+		self.is_visited = False
 
 	def build_neighbor(self):
 		directions = Direction().possible_combination
 		for dir in directions:
 			x, y = Direction(dir[0], dir[1]).iterate(self.x, self.y)
 			col = self.environnement.is_their_a_collision(x, y)
-			if col is tuple or col is Wall:
-				print("coucou")
-				self.list_neighbor.append(self.environnement.grille_dijkstra_val[x][y])
+			if not (isinstance(col, tuple) or isinstance(col, Wall)):
+				self.list_neighbor.append(self.environnement.grille_dijkstra_val[y][x])
+
+	def is_first(self):
+		self.val = 0
 
 
 
