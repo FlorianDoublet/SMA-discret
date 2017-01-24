@@ -5,6 +5,7 @@ from model.pacman.agents.hunter import Hunter
 from model.pacman.agents.wall import Wall
 from model.pacman.agents.winner import Winner
 from pynput import keyboard
+import pynput._util.win32_vks as VK
 from model.pacman.dijkstra import Dijkstra
 from model.core.Direction import Direction
 
@@ -27,14 +28,43 @@ class Avatar(Agent):
         self.listener.start()
 
     def on_press(self, key):
-        if key == keyboard.Key.up:
+        if key == keyboard.KeyCode.from_char('8'):
+            self.direction.x_axis = 0
             self.direction.y_axis = -1
-        if key == keyboard.Key.down:
+        if key == keyboard.KeyCode.from_vk(65437): # touche 5 du num pad
+            self.direction.x_axis = 0
             self.direction.y_axis = 1
-        if key == keyboard.Key.left:
+        if key == keyboard.KeyCode.from_char('4'):
             self.direction.x_axis = -1
-        if key == keyboard.Key.right:
+            self.direction.y_axis = 0
+        if key == keyboard.KeyCode.from_char('6'):
             self.direction.x_axis = 1
+            self.direction.y_axis = 0
+
+        if key == keyboard.KeyCode.from_char('7'):
+            self.direction.y_axis = -1
+            self.direction.x_axis = -1
+        if key == keyboard.KeyCode.from_char('9'):
+            self.direction.y_axis = -1
+            self.direction.x_axis = 1
+        if key == keyboard.KeyCode.from_char('1'):
+            self.direction.y_axis = 1
+            self.direction.x_axis = -1
+        if key == keyboard.KeyCode.from_char('3'):
+            self.direction.y_axis = 1
+            self.direction.x_axis = 1
+
+        sma = self.environnement.SMA
+        if key == keyboard.KeyCode.from_char('a'):
+            if sma.avatar_speed > 1:
+                sma.avatar_speed -= 1
+        if key == keyboard.KeyCode.from_char('z'):
+            sma.avatar_speed += 1
+        if key == keyboard.KeyCode.from_char('o'):
+            if sma.hunter_speed > 1:
+                sma.hunter_speed -= 1
+        if key == keyboard.KeyCode.from_char('p'):
+            sma.hunter_speed += 1
 
     def update(self):
         self.dijkstra.reset(self.environnement.grille_dijkstra_val[self.y][self.x])
@@ -44,12 +74,21 @@ class Avatar(Agent):
         self.environnement.set_agent(self)
 
     def decide(self):
+        sma = self.environnement.SMA
+        if (sma.tick % sma.avatar_speed != 0):
+            return
+        # Gestion invincibilite
         if self.current_invincibility < self.invincibility_time and (self.current_invincibility % 2 == 0):
             self.color = "cyan"
         if self.current_invincibility < self.invincibility_time and (self.current_invincibility % 2 != 0):
             self.color = "yellow"
+        if self.current_invincibility > self.invincibility_time:
+            self.environnement.is_player_invincible = False
+        if self.current_invincibility < self.invincibility_time:
+                self.environnement.is_player_invincible = True
         self.current_invincibility += 1
 
+        # Gestion deplacement
         x, y = self.next_position()
         collision = self.environnement.is_their_a_collision(x, y)
 
@@ -63,8 +102,8 @@ class Avatar(Agent):
             self.y = y
             self.update()
 
-        self.direction.y_axis = 0
-        self.direction.x_axis = 0
+        #self.direction.y_axis = 0
+        #self.direction.x_axis = 0
 
     def decide_by_agent(self, agent, x, y):
         if type(agent) is Wall:
@@ -92,14 +131,12 @@ class Avatar(Agent):
             pass
         elif type(agent) is Winner:
             agent.die()
+            self.environnement.SMA.is_finish = True
             print('\033[92m' + 'YOU WON !' + '\033[0m')
-            sys.exit()
-            pass
 
     def die(self):
+        self.environnement.SMA.is_finish = True
         print('\033[91m' + 'YOU LOST !' + '\033[0m')
-        sys.exit()
-        pass
 
     def wall_collision(self, wall_inv):
         pass

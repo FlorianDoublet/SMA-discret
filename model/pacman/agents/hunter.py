@@ -1,4 +1,5 @@
 from model.core.agent import Agent
+from model.pacman.cell import Cell
 import model.pacman
 
 
@@ -12,6 +13,9 @@ class Hunter(Agent):
         self.environnement.set_agent(self)
 
     def decide(self):
+        sma = self.environnement.SMA
+        if (sma.tick % sma.hunter_speed != 0):
+            return
         x, y = self.next_position()
 
         collision = self.environnement.is_their_a_collision(x, y)
@@ -33,10 +37,11 @@ class Hunter(Agent):
             pass
 
     def next_position(self):
-        x, y = self.direction.random_dir()
-        x += self.x
-        y += self.y
-
-        x, y = self.calculate_torrique_position(x, y)
+        cell = self.environnement.grille_dijkstra_val[self.y][self.x]
+        if self.environnement.is_player_invincible:
+            neighbour = cell.get_furthest_neigh()
+        else:
+            neighbour = cell.get_nearest_neigh()
+        x, y = neighbour.x, neighbour.y
 
         return x, y

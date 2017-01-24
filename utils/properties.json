@@ -1,8 +1,8 @@
 {
   "general_parameter" : {
     "grid_size" : {
-    "grid_size_x" : 100,
-    "grid_size_y" : 100
+    "grid_size_x" : 30,
+    "grid_size_y" : 30
     },
 
     "canvas_size" : {

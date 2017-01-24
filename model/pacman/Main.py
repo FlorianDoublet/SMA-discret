@@ -24,7 +24,7 @@ class Main:
 
 
         i = 0
-        while i <= tick:
+        while i <= tick or (not sma.is_finish):
             sma.run()
             sleep(delay)
             if tick > 0:

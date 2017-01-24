@@ -63,7 +63,7 @@ class Vue(Observer):
                     paused = (True, False)[paused]
 
     def update(self, *args, **kwargs):
-        self.controls()
+        #self.controls()
 
         environnement = args[0]
         agents = environnement.SMA.agent_list

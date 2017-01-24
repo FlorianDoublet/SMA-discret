@@ -12,6 +12,7 @@ class PacmanEnv(Environnement):
         for y in range(self.h):
             for x in range(self.w):
                 self.grille_dijkstra_val[y][x].build_neighbor()
+        self.is_player_invincible = False
 
     def print_grille_dijkstra(self):
         print("\n")
