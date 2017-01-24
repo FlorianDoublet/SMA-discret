@@ -38,6 +38,18 @@
       "breed_time" : 10,
       "starve_time" : 8
     }
+  },
+  "pacman" : {
+    "hunter" : {
+      "nb" : 2,
+      "speed" : 10
+    },
+    "avatar" : {
+      "speed" : 5
+    },
+    "wall" : {
+      "percent" : 10
+    }
   }
 
 }

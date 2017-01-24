@@ -19,8 +19,8 @@ class Pacman(Core):
         self.environnement = PacmanEnv(self.w, self.h, self)
         self.is_finish = False
         self.init_agents()
-        self.avatar_speed = 1
-        self.hunter_speed = 10
+        self.avatar_speed = self.prop.speed_avatar()
+        self.hunter_speed = self.prop.speed_hunter()
 
     def init_agents(self):
         # Generer toutes les permutations possibles
@@ -36,7 +36,7 @@ class Pacman(Core):
 
         self.agent_list = []
         self.init_walls()
-        self.init_hunters(2)
+        self.init_hunters()
         self.init_avatar()
 
     def print_tick(self):
@@ -56,8 +56,11 @@ class Pacman(Core):
         self.agent_list.append(Avatar("yellow", agent_pos[0], agent_pos[1],self.environnement, self.is_trace))
 
     def init_walls(self, type="random"):
+        percent_wall = self.prop.wall_percent() / 100
+        grid_size = self.w * self.h
+        n_walls = int(grid_size * percent_wall)
         if type == "random":
-            n_walls = 50
+
             agent_pos = random.sample(self.every_possible_tuple_position, n_walls)
 
             for pos in agent_pos:
@@ -67,9 +70,9 @@ class Pacman(Core):
         elif type == "labyrinth":
             self.generate_maze()
 
-    def init_hunters(self, n_hunters):
+    def init_hunters(self):
 
-        for n in range(n_hunters):
+        for n in range(self.prop.nb_hunter()):
             agent_pos = self.get_available_position()
 
             self.agent_list.append(Hunter("red", agent_pos[0], agent_pos[1], self.environnement, self.is_trace))
