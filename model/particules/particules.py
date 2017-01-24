@@ -10,6 +10,7 @@ class Particles(Core):
 
     def __init__(self):
         super().__init__()
+        self.init_agents()
 
     def init_agents(self):
         number = self.prop.nb_particles()

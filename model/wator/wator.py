@@ -11,6 +11,7 @@ class Wator(Core):
 
     def __init__(self):
         super().__init__()
+        self.init_agents()
         self.nb_fish_tick = 0
         self.nb_shark_tick = 0
 
