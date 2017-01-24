@@ -42,13 +42,13 @@
   "pacman" : {
     "hunter" : {
       "nb" : 2,
-      "speed" : 20
+      "speed" : 30
     },
     "avatar" : {
-      "speed" : 5
+      "speed" : 10
     },
     "wall" : {
-      "percent" : 10
+      "percent" : 40
     }
   }
 
