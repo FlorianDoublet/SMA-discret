@@ -1,6 +1,7 @@
 from model.core.core import Core
 from itertools import product
 import random
+import math
 from model.pacman.agents.defender import Defender
 from model.pacman.agents.hunter import Hunter
 from model.pacman.agents.wall import Wall
@@ -86,11 +87,15 @@ class Pacman(Core):
 
     def create_new_defender(self):
         agent_pos = self.get_available_position()
+        param_defender_life = 300
+        grid_size = self.w * self.h
+        param_defender_life = (math.sqrt(grid_size) * (param_defender_life/100)) + 150
 
-        defender = Defender("green", agent_pos[0], agent_pos[1], self.environnement, self.is_trace, 300)
+
+        defender = Defender("green", agent_pos[0], agent_pos[1], self.environnement, self.is_trace, param_defender_life)
         self.environnement.set_agent(defender)
         self.agent_list.append(defender)
-        self.next_defender = 300
+        self.next_defender = param_defender_life
 
     def get_available_position(self):
         agent_pos = random.sample(self.every_possible_tuple_position, 1)
